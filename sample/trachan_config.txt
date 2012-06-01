@@ -1,0 +1,26 @@
+--fn-pdb                      trajectory/conditions/initial.pdb
+--fn-pore-axis-coordinates    pore_axis.txt
+--fn-pore-axis-coordinates-r  pore_axis_r.txt
+--dt                  20.00
+--pore-axis-basis-from   A 374 O
+--pore-axis-basis-from   B 374 O
+--pore-axis-basis-from   C 374 O
+--pore-axis-basis-from   D 374 O
+--pore-axis-basis-to   A 377 O
+--pore-axis-basis-to   B 377 O
+--pore-axis-basis-to   C 377 O
+--pore-axis-basis-to   D 377 O
+--site-max-radius             10.0
+--site-boundary               20.0
+--site-boundary              -25.0
+--trace-atom-name             K
+--fn-trr trajectory/run301_310_dt20.trr
+--fn-trr trajectory/run311_320_dt20.trr
+--fn-trr trajectory/run321_330_dt20.trr
+--fn-trr trajectory/run331_340_dt20.trr
+--fn-trr trajectory/run341_350_dt20.trr
+--fn-trr trajectory/run351_360_dt20.trr
+--fn-trr trajectory/run361_370_dt20.trr
+--fn-trr trajectory/run371_380_dt20.trr
+--fn-trr trajectory/run381_390_dt20.trr
+--fn-trr trajectory/run391_400_dt20.trr

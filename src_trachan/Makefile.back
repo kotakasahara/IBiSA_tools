@@ -1,0 +1,21 @@
+EXECUTABLES = ../bin/trachan
+CC=icpc
+#CC=g++
+ICCFLAGS = -O3 -xsse4.2 
+
+OBJS = main.o TraChan.o Config.o Read.o \
+       FileIo.o XDRio.o PDBio.o \
+       Coord.o TrnHeader.o \
+       AtomInfo.o ChannelStructure.o  System.o\
+
+.SUFFIXES: .o .cpp
+
+$(EXECUTABLES) : $(OBJS)
+	rm -f $(EXECUTABLES)
+	$(CC) -o $(EXECUTABLES) $(OBJS) $(LIBS) -lm
+.cpp.o:
+	$(CC) -c $(GCCFLAGS) $(CPPFLAGS) $(INCLUDES) $<
+$(OBJS): define.h
+
+clean :
+	-rm -f *~ *.o $(EXECUTABLES)
