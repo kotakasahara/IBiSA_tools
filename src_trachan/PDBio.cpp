@@ -7,7 +7,9 @@ PDBio::PDBio(string in_filename)
 
 vector<AtomInfo> PDBio::read_pdb(){
   vector<AtomInfo> ai;
-  open();
+  if (open()==1){
+    exit(1);
+  }
   string buf;
   
   while(fs && getline(fs, buf)){

@@ -47,7 +47,8 @@ vector<string> FileIo::read_ascii_strings(){
   vector<string> vconf;
   open();
   string buf;
-  while(fs && getline(fs,buf)){
+  /*
+    while(fs && getline(fs,buf)){
     if(buf[0] != '#'){
       stringstream ss(buf);
       string buf2;
@@ -55,6 +56,12 @@ vector<string> FileIo::read_ascii_strings(){
 	if(buf2[0] == '#') break;
 	vconf.push_back(buf);
       }
+    }
+  }
+  */
+  while(fs >> buf){
+    if(buf[0] != '#'){
+      vconf.push_back(buf);
     }
   }
   close();

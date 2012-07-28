@@ -82,15 +82,15 @@ int ChannelStructure::set_pore_axis_basis_atoms
       pore_axis_basis_atom_b.empty()){
     cerr << "Error: the pore axis cannot be defined." << endl;
     cerr << "The basis atoms have to be specified in the configuration file" << endl;
-    cerr << "--pore-axis-basis-from [CHAIN(char)] [RESIDUE(int)] [ATOMNAME(str)]";
-    cerr << "--pore-axis-basis-from A 374 O";
-    cerr << "--pore-axis-basis-from B 374 O";
-    cerr << "--pore-axis-basis-from C 374 O";
-    cerr << "--pore-axis-basis-from D 374 O";
-    cerr << "--pore-axis-basis-to A 377 O";
-    cerr << "--pore-axis-basis-to B 377 O";
-    cerr << "--pore-axis-basis-to C 377 O";
-    cerr << "--pore-axis-basis-to D 377 O";
+    cerr << "--pore-axis-basis-from [CHAIN(char)] [RESIDUE(int)] [ATOMNAME(str)]" << endl;
+    cerr << "--pore-axis-basis-from A 374 O" << endl;
+    cerr << "--pore-axis-basis-from B 374 O" << endl;
+    cerr << "--pore-axis-basis-from C 374 O" << endl;
+    cerr << "--pore-axis-basis-from D 374 O" << endl;
+    cerr << "--pore-axis-basis-to A 377 O" << endl;
+    cerr << "--pore-axis-basis-to B 377 O" << endl;
+    cerr << "--pore-axis-basis-to C 377 O" << endl;
+    cerr << "--pore-axis-basis-to D 377 O" << endl;
     cerr << endl << "EXAMPLE:" << endl;
     
     exit(1);

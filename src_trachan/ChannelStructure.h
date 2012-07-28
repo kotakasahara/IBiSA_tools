@@ -69,6 +69,9 @@ class ChannelStructure : public System{
   std::string get_pore_axis_coordinates_header_string();
 
 
+  //get 
+  const real get_pore_axis_basis_vec_ab_sc(){return pore_axis_basis_vec_ab_sc;}
+  const real get_pore_axis_basis_vec_ab_ip(){return pore_axis_basis_vec_ab_ip;}
 };
 
 #endif

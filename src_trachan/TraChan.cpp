@@ -173,7 +173,7 @@ int TraChan::mode_site_occupancy(){
   cout << "site occupancy mode" << endl;    
   list<string>::iterator i_trr;
 
-  int i_frame=cfg.append_time;
+  int i_frame = cfg.append_time;
 
   ChannelStructure cs;
   {
@@ -242,6 +242,9 @@ int TraChan::mode_site_occupancy(){
 
   ////// read trajectory //////
 
+  double axis_length_sum = 0.0;
+  double axis_length_sq_sum = 0.0;
+
   for(i_trr = cfg.fn_trr.begin();
       i_trr != cfg.fn_trr.end(); i_trr++){
     cout << *i_trr << endl;
@@ -288,11 +291,19 @@ int TraChan::mode_site_occupancy(){
 	line_output << time << cs.get_pore_axis_coordinates_r_string() << endl;
 	f_pore_axis_crd_r.write_string(line_output.str());
       }
+      axis_length_sum += cs.get_pore_axis_basis_vec_ab_sc();
+      axis_length_sq_sum += cs.get_pore_axis_basis_vec_ab_ip();
+
       i_frame++;
 
     }
+
     fin.close();
   }
+
+  double axis_length_ave = axis_length_sum/i_frame;
+  cout << "average axis length = " << axis_length_ave << endl;
+  cout << "sd axis length = " << axis_length_sq_sum/i_frame - axis_length_ave*axis_length_ave << endl;
   
   ///////////// closing output files ///////////////
   if(f_out_site.is_open()) f_out_site.close();

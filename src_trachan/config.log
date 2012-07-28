@@ -61,7 +61,7 @@ configure:1833: found /usr/bin/g++
 configure:1843: result: g++
 configure:1859: checking for C++ compiler version
 configure:1862: g++ --version </dev/null >&5
-g++ (GCC) 4.1.2 20080704 (Red Hat 4.1.2-48)
+g++ (GCC) 4.1.2 20080704 (Red Hat 4.1.2-52)
 Copyright (C) 2006 Free Software Foundation, Inc.
 This is free software; see the source for copying conditions.  There is NO
 warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
@@ -70,9 +70,9 @@ configure:1865: $? = 0
 configure:1867: g++ -v </dev/null >&5
 Using built-in specs.
 Target: x86_64-redhat-linux
-Configured with: ../configure --prefix=/usr --mandir=/usr/share/man --infodir=/usr/share/info --enable-shared --enable-threads=posix --enable-checking=release --with-system-zlib --enable-__cxa_atexit --disable-libunwind-exceptions --enable-libgcj-multifile --enable-languages=c,c++,objc,obj-c++,java,fortran,ada --enable-java-awt=gtk --disable-dssi --enable-plugin --with-java-home=/usr/lib/jvm/java-1.4.2-gcj-1.4.2.0/jre --with-cpu=generic --host=x86_64-redhat-linux
+Configured with: ../configure --prefix=/usr --mandir=/usr/share/man --infodir=/usr/share/info --enable-shared --enable-threads=posix --enable-checking=release --with-system-zlib --enable-__cxa_atexit --disable-libunwind-exceptions --enable-libgcj-multifile --enable-languages=c,c++,objc,obj-c++,java,fortran,ada --enable-java-awt=gtk --disable-dssi --disable-plugin --with-java-home=/usr/lib/jvm/java-1.4.2-gcj-1.4.2.0/jre --with-cpu=generic --host=x86_64-redhat-linux
 Thread model: posix
-gcc version 4.1.2 20080704 (Red Hat 4.1.2-48)
+gcc version 4.1.2 20080704 (Red Hat 4.1.2-52)
 configure:1870: $? = 0
 configure:1872: g++ -V </dev/null >&5
 g++: '-V' option must have argument
@@ -166,7 +166,7 @@ configure:2557: found /usr/bin/gcc
 configure:2567: result: gcc
 configure:2811: checking for C compiler version
 configure:2814: gcc --version </dev/null >&5
-gcc (GCC) 4.1.2 20080704 (Red Hat 4.1.2-48)
+gcc (GCC) 4.1.2 20080704 (Red Hat 4.1.2-52)
 Copyright (C) 2006 Free Software Foundation, Inc.
 This is free software; see the source for copying conditions.  There is NO
 warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
@@ -175,9 +175,9 @@ configure:2817: $? = 0
 configure:2819: gcc -v </dev/null >&5
 Using built-in specs.
 Target: x86_64-redhat-linux
-Configured with: ../configure --prefix=/usr --mandir=/usr/share/man --infodir=/usr/share/info --enable-shared --enable-threads=posix --enable-checking=release --with-system-zlib --enable-__cxa_atexit --disable-libunwind-exceptions --enable-libgcj-multifile --enable-languages=c,c++,objc,obj-c++,java,fortran,ada --enable-java-awt=gtk --disable-dssi --enable-plugin --with-java-home=/usr/lib/jvm/java-1.4.2-gcj-1.4.2.0/jre --with-cpu=generic --host=x86_64-redhat-linux
+Configured with: ../configure --prefix=/usr --mandir=/usr/share/man --infodir=/usr/share/info --enable-shared --enable-threads=posix --enable-checking=release --with-system-zlib --enable-__cxa_atexit --disable-libunwind-exceptions --enable-libgcj-multifile --enable-languages=c,c++,objc,obj-c++,java,fortran,ada --enable-java-awt=gtk --disable-dssi --disable-plugin --with-java-home=/usr/lib/jvm/java-1.4.2-gcj-1.4.2.0/jre --with-cpu=generic --host=x86_64-redhat-linux
 Thread model: posix
-gcc version 4.1.2 20080704 (Red Hat 4.1.2-48)
+gcc version 4.1.2 20080704 (Red Hat 4.1.2-52)
 configure:2822: $? = 0
 configure:2824: gcc -V </dev/null >&5
 gcc: '-V' option must have argument
@@ -388,9 +388,9 @@ configure:4083: result: yes
 configure:4099: checking for sqrt
 configure:4156: gcc -o conftest -g -O2   conftest.c  >&5
 conftest.c:50: warning: conflicting types for built-in function 'sqrt'
-/tmp/cckQoN3j.o: In function `main':
+/tmp/ccK31DwH.o: In function `main':
 /home/kota/dev/gromacs_tools/isac-md/src_trachan/conftest.c:65: undefined reference to `sqrt'
-/tmp/cckQoN3j.o:(.data+0x0): undefined reference to `sqrt'
+/tmp/ccK31DwH.o:(.data+0x0): undefined reference to `sqrt'
 collect2: ld returned 1 exit status
 configure:4162: $? = 1
 configure: failed program was:
