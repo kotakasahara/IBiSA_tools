@@ -19,7 +19,15 @@ set TITLE = "120mv_150mm"
 ## Deciding boundaries among binding sites,
 ## by checking pore_axis.txt
 
-R --vanilla --slave < $ISACMD/r/pore_axis_density.R > pore_axis_density.log
+echo "density_distribution"
+$ISACMD/bin/density_distribution.py \
+  --i-pore-crd-h pore_axis.txt  \
+  --i-pore-crd-r pore_axis_r.txt \
+  --o-density density_distribution.txt \
+  -a K -a OW \
+  --grid-w-h 0.01 --grid-w-r 0.01    
+
+##R --vanilla --slave < $ISACMD/r/pore_axis_density.R > pore_axis_density.log
 
 ## 3.
 ## Discretize trajectory based on ion-binding sites
