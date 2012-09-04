@@ -1,11 +1,12 @@
 #!/usr/bin/env python2.6
+#$ -S /usr/bin/python2.6
+#$ -cwd
 
 from optparse import OptionParser
 import sys
 import re
 import collections
-
-OUT_OF_SITES = "#{OUT_OF_SITES}"
+import json 
 
 def print_sites(boundaries, sitenames):
     print "[SITE DEFINITION]"
@@ -39,14 +40,17 @@ def averaging_coords(crd_hist):
 
     return ave_crd
 
-def define_site(crd, crd_r, boundaries, sitenames, max_r):
-    for i, bnd in enumerate(boundaries):
+def define_site(crd, crd_r, boundaries_h, boundaries_r, sitenames):
+    for i, bnd in enumerate(boundaries_h):
         if crd > bnd:
-            return sitenames[i]
+            if crd_r < boundaries_r[i-1]:
+                return sitenames[i]
+            else:
+                return sitenames[0]
     return sitenames[0]
 
 def analyze_run(fn_in, fn_in_r, fn_out,
-                boundaries, sitenames,
+                target_atoms,
                 max_r, ave_steps):  
     ave_size = ave_steps*2 + 1
 
@@ -99,9 +103,16 @@ def analyze_run(fn_in, fn_in_r, fn_out,
                 if crd == "-":
                     continue
                 atom_id = atom_id_list[i]
+                atom_name = atom_id_name[atom_id]
                 crd = float(crd)
-                site_id = define_site(crd, coords_r[i], boundaries, sitenames, max_r)
-                if site_id != sitenames[0]:
+                target_atom_def = []
+                for t in target_atoms:
+                    if t["name"] == atom_name:
+                        target_atom_def = t
+                site_id = define_site(crd, float(coords_r[i]),
+                                      target_atom_def["border-h"], target_atom_def["border-r"],
+                                      target_atom_def["site-names"])
+                if site_id != target_atom_def["site-names"][0]:
                     site_occ_str = str(site_id) + ':' + str(atom_id) + ':' + atom_id_name[atom_id]
                     site_occ_strs[site_id].append(site_occ_str)
 
@@ -136,37 +147,25 @@ def _main():
                  type="int",
                  default=0,
                  help="number of steps for averaging")
+    p.add_option('-c', dest="fn_config",
+                 help="file name for settings in json")
     opts, args = p.parse_args()
 
-    flg_fail = False
-    if not opts.fn_pore_crd_h:
-        sys.stderr.write("option '--i-pore-crd-h' is required.")
-        flg_fail = True
-    if not opts.fn_pore_crd_r:
-        sys.stderr.write("option '--i-pore-crd-r' is required.")
-        flg_fail = True
-    if len(opts.boundaries) < 2:
-        sys.stderr.write("more than one '-b' value must be specified.")
-        flg_fail = True
-    if flg_fail:
-        sys.exit()
-
-    boundaries = sorted(opts.boundaries, reverse=True)
-    sitenames = [OUT_OF_SITES]
-    if not opts.sitenames:
-        for i in range(1,len(boundaries)):
-            sitenames.append(str(i))
-    else:
-        for i,n in enumerate(opts.sitenames):
-            sitenames.append(str(n))
-        for i in range(len(sitenames),len(boundaries)):
-            sitenames.append(str(len(sitenames)))
-
-    print_sites(boundaries, sitenames)
+    cfg = {}
+    if opts.fn_config:
+        f_js = open(opts.fn_config,"r")
+        cfg=json.JSONDecoder().decode(f_js.read())
+        f_js.close()
+                                    
+    
+    for target in cfg["target-atoms"]:
+        print_sites(target["border-h"], target["site-names"])
 
     print "//\n"
-    analyze_run(opts.fn_pore_crd_h, opts.fn_pore_crd_r, opts.fn_site_occ,
-                boundaries, sitenames,
+    analyze_run(cfg["files"]["pore-crd-h"],
+                cfg["files"]["pore-crd-r"],
+                cfg["files"]["site-occ"],
+                cfg["target-atoms"],
                 0, opts.ave_steps)
         
 if __name__ == '__main__':

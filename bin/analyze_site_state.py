@@ -1,4 +1,6 @@
 #!/usr/bin/env python2.6
+#$ -S /usr/bin/python2.6
+#$ -cwd
 
 from optparse import OptionParser
 import sys
@@ -9,7 +11,6 @@ from types import *
 
 def cal_sum_of_site_id(state):
     sp = re.compile(":").split(state)
-    
     return sum([int(x) for x in sp[1:]])
 
 def n_ions(state):
