@@ -96,7 +96,9 @@ def output_gml(fn_out, fn_table, fn_table_trans, states, trans, trans_all, count
     i = 0
     f_out.write('graph [\n')
     f_out.write('  directed 1\n') 
-
+    sum_cnt = 0.0
+    for state,cnt in states.items():
+        sum_cnt += cnt
     for state,cnt in states.items():
         flg_star = "0"
         if '*' in state:
@@ -105,8 +107,10 @@ def output_gml(fn_out, fn_table, fn_table_trans, states, trans, trans_all, count
         f_out.write('    id ' + str(i) + '\n')
         f_out.write('    state "' + state + '"\n')
         f_out.write('    count ' + str(cnt) + '\n')
+        f_out.write('    count_rel ' + str(float(cnt)/sum_cnt) + '\n')
+        f_out.write('    logcount ' + str(math.log10(float(cnt)/sum_cnt)) + '\n')
         f_out.write('    wait ' + str(count_wait[state]) + '\n')
-        #f_out.write('    crd ' + str(n_ions(state)) + '\n')
+        f_out.write('    crd ' + str(n_ions(state)) + '\n')
         #f_out.write('    star ' + flg_star + '\n')
         f_out.write('  ]\n')
         state_id[state] = i
@@ -128,6 +132,9 @@ def output_gml(fn_out, fn_table, fn_table_trans, states, trans, trans_all, count
             sys.stderr.write("File"+ fn_table_trans +" could not be opend.\n")
         f_table_trans.write("source\ttarget\tcnt\tdiff\tratio\tdiff_ions\n")
 
+    sum_cnt = 0.0
+    for s_t, cnt in trans.items():
+        sum_cnt += cnt
     for s_t, cnt in trans.items():
         #diff_site_num = cal_sum_of_site_id(s_t[1]) - cal_sum_of_site_id(s_t[0])
         diff_crd = n_ions(s_t[1])-n_ions(s_t[0])
@@ -142,6 +149,8 @@ def output_gml(fn_out, fn_table, fn_table_trans, states, trans, trans_all, count
         f_out.write('    source ' + str(state_id[s_t[0]]) + '\n')
         f_out.write('    target ' + str(state_id[s_t[1]]) + '\n')
         f_out.write('    count ' + str(cnt) + '\n')
+        f_out.write('    count_rel ' + str(float(cnt)/sum_cnt) + '\n')
+        f_out.write('    logcount ' + str(math.log10(float(cnt)/sum_cnt)) + '\n')
         f_out.write('    diff ' + str(diff_crd) + '\n')
         #f_out.write('    diff_ns ' + str(diff_crd_nonstar) + '\n')
         f_out.write('    ratio %8.3f'%(float(cnt)/float(trans_all[s_t[0]])) + '\n')
@@ -248,7 +257,7 @@ def analyze_run_vote(fn_in, fn_path, fn_out, fn_out_count,
 
         for info in atom_info[1:]:         ## for each atom
             site_id, atom_id, atom_name = re.compile(":").split(info);
-            if atom_name in atomnames and (type(invalid_sites) is NoneType or  not site_id in invalid_sites):
+            if atom_name in atomnames and not atom_name in invalid_sites or not site_id in invalid_sites[atom_name]:
                 if site_id in repl_site_label:
                     site_id = repl_site_label[site_id]
 
@@ -385,11 +394,16 @@ def _main():
         for i,repl in enumerate(opts.repl_bef):
             repl_site_label[repl] = opts.repl_aft[i]
 
+    invalid_sites = collections.defaultdict(set)
+    for invs in opts.invalid_sites:
+        atom, site = re.compile(":").split(invs)
+        invalid_sites[atom].add(site)
+
     analyze_run_vote(opts.fn_site_occ, opts.fn_path,
                      opts.fn_states,   opts.fn_graph,
                      opts.fn_sim,      opts.fn_table,  opts.fn_table_trans,
                      opts.atomnames,
-                     opts.ave_steps,   opts.invalid_sites,
+                     opts.ave_steps,   invalid_sites,
                      repl_site_label,  opts.through_path, opts.only_through,
                      opts.flg_through_first_end,  opts.through_path_begin,
                      opts.separator_site, opts.separator_atom)
