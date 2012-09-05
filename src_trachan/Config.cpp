@@ -95,6 +95,8 @@ void Config::set_all(const vector<string>& arg){
       append_time = atof((*++itr).c_str());
     }else if(*itr == "--dt"){
       dt = atof((*++itr).c_str());
+    }else if(*itr == "--frame-interval"){
+      frame_interval = atoi((*++itr).c_str());
     }else{
       cerr << "undefined keyword :" << *itr << endl;
     }

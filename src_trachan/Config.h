@@ -58,6 +58,7 @@ class Config{
 
   double append_time; //time for begining of trajectory
   double dt;     //the time interval between trajectory frames
+  int frame_interval;     //the number of frames to be skipped
 
   Config();
   ~Config();

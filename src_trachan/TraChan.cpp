@@ -32,6 +32,7 @@ int TraChan::generate_sample_config(){
   f_out.write_string("--fn-pore-axis-coordinates    pore_axis.txt\n");
   f_out.write_string("--fn-pore-axis-coordinates-r  pore_axis_r.txt\n");
   f_out.write_string("--dt          20.00\n");
+  f_out.write_string("--skip-frame          100\n");
   f_out.write_string("--pore-axis-basis-from   A 374 O\n");
   f_out.write_string("--pore-axis-basis-from   B 374 O\n");
   f_out.write_string("--pore-axis-basis-from   C 374 O\n");
@@ -252,7 +253,9 @@ int TraChan::mode_site_occupancy(){
     if(fin.open() == 1){
       continue;
     }
-
+    if (i_frame % cfg.frame_interval != 0){
+      continue;
+    }
     TrnHeader trnh;
 
     while(fin.read_trn_header(trnh)){
