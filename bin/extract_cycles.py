@@ -1,5 +1,6 @@
 #!/usr/bin/env python2.6
-
+#$ -S /usr/bin/python2.6
+#$ -cwd
 from optparse import OptionParser
 import sys
 import re

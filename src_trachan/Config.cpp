@@ -13,6 +13,7 @@ Config::Config(){
   max_z = 0.0;
   append_time = 0.0;
   dt = 1.0;
+  frame_interval = 1;
 }
 
 Config::~Config(){

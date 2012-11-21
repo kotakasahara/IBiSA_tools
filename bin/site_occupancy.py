@@ -43,15 +43,19 @@ def averaging_coords(crd_hist):
 def define_site(crd, crd_r, boundaries_h, boundaries_r, sitenames):
     for i, bnd in enumerate(boundaries_h):
         if crd > bnd:
-            if crd_r < boundaries_r[i-1]:
-                return sitenames[i]
+            if boundaries_r:
+                if crd_r < boundaries_r[i-1]:
+                    return sitenames[i]
+                else:
+                    return sitenames[0]
             else:
-                return sitenames[0]
+                return sitenames[i]
     return sitenames[0]
 
 def analyze_run(fn_in, fn_in_r, fn_out,
                 target_atoms,
-                max_r, ave_steps):  
+                max_r, ave_steps,
+                t_begin, t_end):  
     ave_size = ave_steps*2 + 1
 
     try: f_in = open(fn_in,'r')
@@ -83,7 +87,8 @@ def analyze_run(fn_in, fn_in_r, fn_out,
         coords = re.compile("\s+").split(line.strip())
         coords_r = re.compile("\s+").split(line_r.strip())[1:]
         frame = int(coords[0])
-
+        if t_begin >= 0 and frame < t_begin: continue
+        if t_end >= 0 and frame >= t_end:  break
         #if frame%1000 == 0:
         #    print frame
 
@@ -137,9 +142,15 @@ def _main():
     p.add_option('--o-site-occ', dest='fn_site_occ',
                  default = "site_occ.txt",
                  help="output file name.")
+    p.add_option('--atom', dest='target_atoms',
+                 action="append",
+                 help="target atom name")
     p.add_option('-b', dest='boundaries',
                  action="append", type="float",
                  help="site boundary coordinates")
+    p.add_option('--b-r', dest='boundaries_r',
+                 action="append", type="float",
+                 help="site boundary coordinates in r axis")
     p.add_option('-n', dest='sitenames',
                  action="append", type="str",
                  help="names of sites")
@@ -149,15 +160,41 @@ def _main():
                  help="number of steps for averaging")
     p.add_option('-c', dest="fn_config",
                  help="file name for settings in json")
+    p.add_option('--begin', dest="begin",
+                 type="int", default=-1,
+                 help="frame to begin to consider")
+    p.add_option('--end', dest="end",
+                 type="int", default=-1,
+                 help="frame to end to consider")
     opts, args = p.parse_args()
 
     cfg = {}
+    cfg["files"] = {}
+    cfg["files"]["pore-crd-h"] = opts.fn_pore_crd_h
+    cfg["files"]["pore-crd-r"] = opts.fn_pore_crd_r
+    cfg["files"]["site-occ"] = opts.fn_site_occ
+    cfg["target-atoms"] = []
+    for at in opts.target_atoms:
+        at_config = {}
+        at_config["name"] = at
+        at_config["border-h"] = opts.boundaries
+        at_config["border-r"] = opts.boundaries_r
+        at_config["site-names"] = opts.sitenames
+        cfg["target-atoms"].append(at_config)
+    cfg["time"] = {}
+    cfg["time"]["ave-steps"] = opts.ave_steps
+    cfg["time"]["begin"] = opts.begin
+    cfg["time"]["end"] = opts.end
     if opts.fn_config:
         f_js = open(opts.fn_config,"r")
-        cfg=json.JSONDecoder().decode(f_js.read())
+        js = ""
+        for line in f_js:
+            if line[0] != "#" and line[0] != ";":
+                js += line
+        cfg=json.JSONDecoder().decode(js)
         f_js.close()
-                                    
-    
+
+
     for target in cfg["target-atoms"]:
         print_sites(target["border-h"], target["site-names"])
 
@@ -166,7 +203,8 @@ def _main():
                 cfg["files"]["pore-crd-r"],
                 cfg["files"]["site-occ"],
                 cfg["target-atoms"],
-                0, opts.ave_steps)
+                0, cfg["time"]["ave-steps"],
+                cfg["time"]["begin"], cfg["time"]["end"])
         
 if __name__ == '__main__':
     _main()

@@ -63,7 +63,7 @@ def output_state_similarity_score(fn_out, states, trans, trans_all):
 
         print pair_id[0] + ":" + pair_id[1] + " " + str(prob_0) + ":" +str(prob_1) + ":"+str(prob_0_1)+":"+str(prob_1_0)
 
-        dic_sim[pair_id] = math.log10(prob_0*prob_0_1 + prob_1*prob_1_0)
+        dic_sim[pair_id] = math.log(prob_0*prob_0_1 + prob_1*prob_1_0)
 
     try: f_out = open(fn_out,"w")
     except IOError:
@@ -225,7 +225,8 @@ def analyze_run_vote(fn_in, fn_path, fn_out, fn_out_count,
                      atomnames, vote_steps, invalid_sites,
                      repl_site_label, through_path, only_through,
                      flg_through_first_end, through_path_begin,
-                     separator_site, separator_atom):
+                     separator_site, separator_atom,
+                     t_begin, t_end):
     # take states by voting of before and after N steps
     through_ion_frames, entering_ion_frames, exiting_ion_frames = \
                         read_pass_through_ion_frames(fn_path, through_path, atomnames,
@@ -252,6 +253,8 @@ def analyze_run_vote(fn_in, fn_path, fn_out, fn_out_count,
     for line in f_in:  ## for each frame
         atom_info = re.compile("\s+").split(line.strip())
         frame = atom_info[0]
+        if t_begin >= 0 and int(frame) < t_begin: continue
+        if t_end >= 0 and int(frame) >= t_end:  break
         #site_state ... list of tuple(2 elements) [(site_id, atom_id)]
         site_state = collections.defaultdict(list)
 
@@ -368,6 +371,12 @@ def _main():
     p.add_option('--separator-site', dest="separator_site",
                  default=":",
                  help="separator charactor for state string, spliting binding sites")
+    p.add_option('--begin', dest="begin",
+                 type="int", default=-1,
+                 help="frame to begin to consider")
+    p.add_option('--end', dest="end",
+                 type="int", default=-1,
+                 help="frame to end to consider")
     opts, args = p.parse_args()
 
     flg_fail=False
@@ -395,10 +404,14 @@ def _main():
             repl_site_label[repl] = opts.repl_aft[i]
 
     invalid_sites = collections.defaultdict(set)
-    for invs in opts.invalid_sites:
-        atom, site = re.compile(":").split(invs)
-        invalid_sites[atom].add(site)
-
+    if opts.invalid_sites:
+        for invs in opts.invalid_sites:
+            if re.compile(":").search(invs):
+                atom, site = re.compile(":").split(invs)
+                invalid_sites[atom].add(site)
+            else:
+                for atom in opts.atomnames:
+                    invalid_sites[atom].add(invs)
     analyze_run_vote(opts.fn_site_occ, opts.fn_path,
                      opts.fn_states,   opts.fn_graph,
                      opts.fn_sim,      opts.fn_table,  opts.fn_table_trans,
@@ -406,7 +419,8 @@ def _main():
                      opts.ave_steps,   invalid_sites,
                      repl_site_label,  opts.through_path, opts.only_through,
                      opts.flg_through_first_end,  opts.through_path_begin,
-                     opts.separator_site, opts.separator_atom)
+                     opts.separator_site, opts.separator_atom,
+                     opts.begin, opts.end)
 
 
 if __name__ == '__main__':

@@ -1,4 +1,6 @@
 #!/usr/bin/env python2.6
+#$ -S /usr/bin/python2.6
+#$ -cwd
 
 from optparse import OptionParser
 import sys
@@ -94,6 +96,7 @@ def state_to_chara(fn_state_dict_in,
     ## A-Z: 65-90  : 26
     ## a-z: 97-122 : 26
 
+    print len(set_state)
     n_char = 0
     if len(set_state) < 62:
         n_char = 1

@@ -1,10 +1,11 @@
-#!/usr/bin/python
+#!/usr/bin/env python2.6
+#$ -S /usr/bin/python2.6
+#$ -cwd
 
 from optparse import OptionParser
 import sys
 import re
 import collections
-
 
 def atom_path_full(site_path, separator):
     #str_path_full = atom_name + ":"
