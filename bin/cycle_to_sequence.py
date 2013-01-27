@@ -50,10 +50,9 @@ def get_char(n_char, i):
         if i < 26:
             char = chr(ord('A')+i)
         elif i < 52:
-            char = chr(ord('a')+i)
+            char = chr(ord('a')+i-26)
         elif i < 62:
-            char = chr(ord('0')+i)
-
+            char = chr(ord('0')+i-52)
     elif n_char == 2:
         char = chr(ord('A') + i/26)
         char += chr(ord('a') + i%26)
@@ -112,7 +111,7 @@ def state_to_chara(fn_state_dict_in,
         for state_str in sorted(state_ionnum[ionnum]):
             if not state_str in state_dict:
                 chara = get_char(n_char, i_state)
-                if chara in used_chara:
+                while chara in used_chara:
                     i_state += 1
                     chara = get_char(n_char, i_state)
                 state_dict[state_str] = chara

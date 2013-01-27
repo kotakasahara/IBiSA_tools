@@ -378,7 +378,6 @@ def _main():
                  type="int", default=-1,
                  help="frame to end to consider")
     opts, args = p.parse_args()
-
     flg_fail=False
     if not opts.fn_site_occ:
         sys.stderr.write("Option '--i-site-occ' is required.")

@@ -89,7 +89,6 @@ def read_score_matrix(fn_score):
     f_sc.close()
     return score
 
-
 def read_sequences(fn_seq, min_len, ignore):
     seq = {}
     try: f_seq = open(fn_seq,"r")
