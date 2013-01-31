@@ -86,7 +86,7 @@ def analyze_run(fn_in, fn_in_r, fn_out,
         line_r = f_in_r.readline()
         coords = re.compile("\s+").split(line.strip())
         coords_r = re.compile("\s+").split(line_r.strip())[1:]
-        frame = int(coords[0])
+        frame = int(float(coords[0]))
         if t_begin >= 0 and frame < t_begin: continue
         if t_end >= 0 and frame >= t_end:  break
         #if frame%1000 == 0:

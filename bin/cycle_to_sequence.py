@@ -27,7 +27,7 @@ def read_cycles(fn_cycle):
             cur_title = '\t'.join(terms[1:])
             cycle_dict[cur_title] = ([],[]) ## ([state..], [frame...])
         else:
-            frame = int(terms[0])
+            frame = int(float(terms[0]))
             state = terms[1]
             atoms = terms[2]
             cycle_dict[cur_title][0].append(state)

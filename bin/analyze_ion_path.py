@@ -79,7 +79,7 @@ def analyze_run(fn_site_occ, fn_all_path, fn_count_full, fn_count_h_t, symbol_ou
 
     for line in f_in:  ## for each frame
         atom_info = re.compile("\s+").split(line.strip())
-        frame = int(atom_info[0])
+        frame = int(float(atom_info[0]))
         atoms_in_sites = set()  ## atom id which was in sites at this frame
 
         for info in atom_info[1:]:         ## for each atom

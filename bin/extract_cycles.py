@@ -69,7 +69,7 @@ def analyze_state(fn_state, home_state):
         # terms[0]: time
         # terms[1]: state
         # terms[2]: atoms
-        frame = int(terms[0])
+        frame = int(float(terms[0]))
         site_state = terms[1] + '\t' + terms[2]
 
         ## checking existance of same state with same atoms in the cur_cycle
