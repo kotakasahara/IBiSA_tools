@@ -72,7 +72,7 @@ def state_to_chara(fn_state_dict_in,
 
         for line in f_dict:
             terms = re.compile("\s+").split(line.strip())
-            state_dict[terms[0]] = terms[1]
+            state_dict[terms[0]] = terms[1:]
             used_chara.add(terms[1])
         f_dict.close()
     
@@ -114,7 +114,7 @@ def state_to_chara(fn_state_dict_in,
                 while chara in used_chara:
                     i_state += 1
                     chara = get_char(n_char, i_state)
-                state_dict[state_str] = chara
+                state_dict[state_str] = [chara]
                 i_state += 1
     return state_dict
 
@@ -122,7 +122,7 @@ def convert_path_string(state_dict, path):
     converted = ""
     for s in path:
         if s in state_dict:
-            converted += state_dict[s]
+            converted += state_dict[s][0]
         else:
             converted += out_of_state
     return converted
@@ -134,7 +134,7 @@ def output_state_dict(fn_state_dict, state_dict):
         sys.exit()
     
     for state, chara in sorted(state_dict.items(), key=lambda x:x[1]):
-        f_out.write(state + "\t" + chara + "\n")
+        f_out.write(state + "\t" + '\t'.join(chara) + "\n")
     f_out.close()
     return
 

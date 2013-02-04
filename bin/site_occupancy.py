@@ -110,13 +110,14 @@ def analyze_run(fn_in, fn_in_r, fn_out,
                 atom_id = atom_id_list[i]
                 atom_name = atom_id_name[atom_id]
                 crd = float(crd)
-                target_atom_def = []
+                site_id = -1
                 for t in target_atoms:
                     if t["name"] == atom_name:
                         target_atom_def = t
-                site_id = define_site(crd, float(coords_r[i]),
-                                      target_atom_def["border-h"], target_atom_def["border-r"],
-                                      target_atom_def["site-names"])
+                        site_id = define_site(crd, float(coords_r[i]),
+                                              target_atom_def["border-h"],
+                                              target_atom_def["border-r"],
+                                              target_atom_def["site-names"])
                 if site_id != target_atom_def["site-names"][0]:
                     site_occ_str = str(site_id) + ':' + str(atom_id) + ':' + atom_id_name[atom_id]
                     site_occ_strs[site_id].append(site_occ_str)
@@ -142,7 +143,7 @@ def _main():
     p.add_option('--o-site-occ', dest='fn_site_occ',
                  default = "site_occ.txt",
                  help="output file name.")
-    p.add_option('--atom', dest='target_atoms',
+    p.add_option('--atomname', dest='target_atoms',
                  action="append",
                  help="target atom name")
     p.add_option('-b', dest='boundaries',
@@ -193,9 +194,8 @@ def _main():
                 js += line
         cfg=json.JSONDecoder().decode(js)
         f_js.close()
-
-
-    for target in cfg["target-atoms"]:
+    print cfg
+    for i,target in enumerate(cfg["target-atoms"]):
         print_sites(target["border-h"], target["site-names"])
 
     print "//\n"
