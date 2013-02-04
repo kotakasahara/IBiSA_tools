@@ -48,7 +48,8 @@ def output_a_target_atom_path(atom_id, atom_id_name,
     count_path_h_t[atom_id_name[atom_id] + separator + str_path_h_t] += 1
     return count_path_full, count_path_h_t
 
-def analyze_run(fn_site_occ, fn_all_path, fn_count_full, fn_count_h_t, symbol_out, separator):  
+def analyze_run(fn_site_occ, fn_all_path, fn_count_full, fn_count_h_t, symbol_out, separator,
+                f_begin, f_end):  
     try: f_in = open(fn_site_occ,'r')
     except IOError:
         sys.stderr.write("Error: File "+fn_site_occ+" could not be opened.\n")
@@ -80,6 +81,8 @@ def analyze_run(fn_site_occ, fn_all_path, fn_count_full, fn_count_h_t, symbol_ou
     for line in f_in:  ## for each frame
         atom_info = re.compile("\s+").split(line.strip())
         frame = int(float(atom_info[0]))
+        if f_begin>0 and frame<begin: continue
+        if f_end>0 and frame>f_end: break
         atoms_in_sites = set()  ## atom id which was in sites at this frame
 
         for info in atom_info[1:]:         ## for each atom
@@ -175,6 +178,12 @@ def _main():
     p.add_option('--separator', dest='separator',
                   default=":",
                  help="separator symbols between sites in paths")
+    p.add_option('--begin', dest='f_begin',
+                 type="int",
+                 help="frame to begin")
+    p.add_option('--end', dest='f_end',
+                 type="int",
+                 help="frame to end")
     opts, args = p.parse_args()
 
     flg_fail = False
@@ -186,7 +195,8 @@ def _main():
 
 
     analyze_run(opts.fn_site_occ, opts.fn_all_paths, opts.fn_count_full, opts.fn_count_h_t,
-                opts.symbol_out, opts.separator)
+                opts.symbol_out, opts.separator,
+                opts.f_begin, opts.f_end)
         
 if __name__ == '__main__':
     _main()
