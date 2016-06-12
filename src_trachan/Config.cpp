@@ -14,6 +14,7 @@ Config::Config(){
   append_time = 0.0;
   dt = 1.0;
   frame_interval = 1;
+  double_precision = false;
 }
 
 Config::~Config(){
@@ -98,6 +99,8 @@ void Config::set_all(const vector<string>& arg){
       dt = atof((*++itr).c_str());
     }else if(*itr == "--frame-interval"){
       frame_interval = atoi((*++itr).c_str());
+    }else if(*itr == "--double-precision"){
+      double_precision = true;
     }else{
       cerr << "undefined keyword :" << *itr << endl;
     }

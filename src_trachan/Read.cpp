@@ -25,7 +25,7 @@ vector<string> Read::load_config(){
   open();
   string buf;
   while(ifs>>buf){
-    if(buf[0] != '#')
+    if(buf[0] != '#' and buf[0] != ';')
       vconf.push_back(buf);
   }
   close();

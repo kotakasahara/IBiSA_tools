@@ -150,6 +150,7 @@ class Coord{
 */
 
 typedef float real;
+//typedef double real;
 typedef Coord<real> Crd;
 
 #endif

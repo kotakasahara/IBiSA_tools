@@ -166,6 +166,8 @@ int ChannelStructure::convert_pore_axis_coordinate
 
   r = vec_yx.scalar();
 
+  //cout << r << endl;
+  //exit(0);
   return 0;
 }
 
@@ -236,6 +238,7 @@ string ChannelStructure::get_pore_axis_coordinates_h_string(){
       i_atom != trace_atom_id.end(); i_atom++){
     map<int, pair<real,real> >::iterator i_crd;
     i_crd = pore_axis_crd.find(*i_atom);
+
     if(i_crd != pore_axis_crd.end() &&
        i_crd->second.second <= site_max_r &&
        i_crd->second.first < (*site_boundaries.begin())+site_hight_margin &&

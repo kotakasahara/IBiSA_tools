@@ -21,6 +21,8 @@ class Config{
   std::list<std::string> fn_trr; // --fn-trr
   std::string fn_pdb; // --fn-pdb
 
+  bool double_precision;
+
   // output filenames
   std::string fn_site_occupancy; // --fn-site-occupancy
   std::string fn_pore_axis_density; // --fn-pore-axis-density

@@ -85,7 +85,7 @@ int TraChan::mode_test(){
   list<string>::iterator i_trr;
 
   int i_frame=0;
-
+  int value_width = 0;
   for(i_trr = cfg.fn_trr.begin();
       i_trr != cfg.fn_trr.end(); i_trr++){
     cout << *i_trr << endl;
@@ -93,16 +93,14 @@ int TraChan::mode_test(){
     fin.open();
 
     TrnHeader trnh;
-    while(fin.read_trn_header(trnh)){
+    while(fin.read_trn_header(trnh, value_width)){
       //cout << "Frame: " << i_frame << endl;
 
       vector<Crd> box;
       vector<Crd> x;
       vector<Crd> v;
       vector<Crd> f;
-      fin.read_trn_frame(trnh, box, x, v, f);
-
-      cout << "x[0][0] " << x[0][0] << endl;
+      fin.read_trn_frame(trnh, box, x, v, f, value_width);
 
       i_frame++;
     }
@@ -189,6 +187,7 @@ int TraChan::mode_site_occupancy(){
 			       cfg.pore_axis_basis_atomname_a, cfg.pore_axis_basis_atom_a,
 			       cfg.pore_axis_basis_chain_b,    cfg.pore_axis_basis_res_b,
 			       cfg.pore_axis_basis_atomname_b, cfg.pore_axis_basis_atom_b);
+  
   cs.set_trace_atom_id_from_atom_names(cfg.trace_atom_names);
   cs.set_site_max_radius(cfg.site_max_radius);
   cs.set_site_hight_margin(cfg.site_hight_margin);
@@ -245,10 +244,15 @@ int TraChan::mode_site_occupancy(){
 
   double axis_length_sum = 0.0;
   double axis_length_sq_sum = 0.0;
+  int value_width = 4;
+  if(cfg.double_precision==true){
+    cout << "DOUBLE PRECISION" <<endl;
+    value_width = 8;
+  }
 
   for(i_trr = cfg.fn_trr.begin();
       i_trr != cfg.fn_trr.end(); i_trr++){
-    cout << *i_trr << endl;
+    //cout << *i_trr << endl;
     XDRio fin( (*i_trr) );
     if(fin.open() == 1){
       continue;
@@ -258,15 +262,15 @@ int TraChan::mode_site_occupancy(){
     }
     TrnHeader trnh;
 
-    while(fin.read_trn_header(trnh)){
+    while(fin.read_trn_header(trnh, value_width)){
       //      cout << "Frame: " << i_frame << endl;
       double time = i_frame * cfg.dt;
-
+      //cout << time << endl;
       box.clear();
       x.clear();
       v.clear();
       f.clear();
-      fin.read_trn_frame(trnh, box, x, v, f);
+      fin.read_trn_frame(trnh, box, x, v, f, value_width);
       cs.set_pore_axis_basis_coordinates(x);
       
       cs.cal_pore_axis_coordinates(x);

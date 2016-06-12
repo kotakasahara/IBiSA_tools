@@ -57,16 +57,21 @@ def analyze_run(fn_in, fn_in_r, fn_out,
                 max_r, ave_steps,
                 t_begin, t_end):  
     ave_size = ave_steps*2 + 1
-
+    f_in = None
+    f_in_r = None
+    f_out = None
     try: f_in = open(fn_in,'r')
     except IOError:
-        sys.stderr.write("File "+fn_in+" could not be opend.")
+        sys.stderr.write("File "+fn_in+" could not be opend.\n")
+        sys.exit(1)
     try: f_in_r = open(fn_in_r,'r')
     except IOError:
-        sys.stderr.write("File "+fn_in_r+" could not be opend.")
+        sys.stderr.write("File "+fn_in_r+" could not be opend.\n")
+        sys.exit(1)
     try: f_out = open(fn_out, 'w')
     except IOError:
-        sys.stderr.write("File "+fn_out+" could not be opend.")
+        sys.stderr.write("File "+fn_out+" could not be opend.\n")
+        sys.exit(1)
     atom_id_list = []
     ## atom_id_name[aotm_id] = atom_name
     atom_id_name = {}

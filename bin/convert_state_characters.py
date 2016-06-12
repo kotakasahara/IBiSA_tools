@@ -27,6 +27,8 @@ def _main():
                  help="input file name for .fsa sequence file.")
     p.add_option('--o-sequence', dest='fn_sequences_out',
                  help="output file name for converted .fsa sequence file")
+    p.add_option('--o-sequence-table', dest='fn_sequences_table_out',
+                 help="output file name for converted .fsa sequence file")
     p.add_option('--o-sequence-count', dest='fn_sequences_count',
                  help="output file name for counts.")
     opts, args = p.parse_args()    
@@ -35,17 +37,27 @@ def _main():
     sequences = read_sequences(opts.fn_sequences, 0, [])
 
     seq_count = collections.defaultdict(int)
-    f_out = open(opts.fn_sequences_out,"w")
+    f_out = None
+    f_tbl_out = None
+    if opts.fn_sequences_out:
+        f_out = open(opts.fn_sequences_out,"w")
+    if opts.fn_sequences_table_out:
+        f_tbl_out = open(opts.fn_sequences_table_out,"w")
     for head, seq in sequences.items():
         new_seq = ""
         for c in seq:
             if len(new_seq) == 0 or new_seq[-1] != dict[c]:
                 new_seq += dict[c]
         if len(head) > 0 and len(new_seq) > 0:
-            f_out.write(head+"\n")
-            f_out.write(new_seq+"\n")
+            if f_out:
+                f_out.write(head+"\n")
+                f_out.write(new_seq+"\n")
+            if f_tbl_out:
+                f_tbl_out.write(head[1:]+"\t"+new_seq+"\n")
             seq_count[new_seq] += 1
-    f_out.close()
+    if f_out:     f_out.close()
+    if f_tbl_out: f_tbl_out.close()
+
     seq_count = sorted(seq_count.items(), key=lambda x:x[1], reverse=True)
     
     if opts.fn_sequences_count:
