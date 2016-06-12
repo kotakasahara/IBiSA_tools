@@ -13,7 +13,7 @@ static std::string cp =
   "                      TraChan                \n"
   "  TRAjectory analyzer for CHANnel pore axis  \n"
   "-----------------------------------------------------------------\n"
-  "Copyright (c) 2012 Kota Kasahara, Tohoku University\n"  
+  "Copyright (c) 2016 Kota Kasahara, Ritsumeikan University\n"  
   "This software is distributed under the terms of the GPL license\n";
 
 static std::string cp_gromacs = 
