@@ -22,7 +22,7 @@ def output_cycles(fn_cycles, cycles, cal_title):
     f_cycles.close()
     return
 
-def decide_home(fn_state, fn_dict, home_chara):
+def decide_resting(fn_state, fn_dict, resting_chara):
     count = collections.defaultdict(int)
     try: f_state = open(fn_state,"r")
     except IOError:
@@ -35,25 +35,25 @@ def decide_home(fn_state, fn_dict, home_chara):
         count[terms[1]] += 1
     f_state.close()
     
-    home = ""
+    resting = ""
     max_cnt = 0
     for state,cnt in count.items():
         if cnt > max_cnt:
-            home = state
+            resting = state
             max_cnt = cnt
 
-    ## output dictionary containing only the home state
+    ## output dictionary containing only the resting state
     try: f_dict = open(fn_dict,"w")
     except IOError:
         sys.stderr.write("Error: File "+fn_dict+" could not be opend.\n")
         sys.exit()
-    f_dict.write(home+'\t'+home_chara+'\n')
+    f_dict.write(resting+'\t'+resting_chara+'\n')
     f_dict.close()
 
 
-    return home
+    return resting
 
-def analyze_state(fn_state, home_state):
+def analyze_state(fn_state, resting_state):
 
     #cur_cycle = [line1, line2, ...]
     cur_cycle = []
@@ -81,7 +81,7 @@ def analyze_state(fn_state, home_state):
                 break
         if not flg_exist:
             cur_cycle.append(terms)
-            if terms[1] == home_state and len(cur_cycle)>2:
+            if terms[1] == resting_state and len(cur_cycle)>2:
                 cycles.append(cur_cycle)
                 cur_cycle = [terms]
 
@@ -100,11 +100,11 @@ def _main():
     p.add_option('--o-state-dict', dest='fn_dict',
                  default="state_dict_pre.txt",
                  help="filename for output.")
-    p.add_option('--home', dest='home_state',
-                 help="string of the home state, e.g., K:0:2:4")
-    p.add_option('--home-chara', dest='home_chara',
+    p.add_option('--resting', dest='resting_state',
+                 help="string of the resting state, e.g., K:0:2:4")
+    p.add_option('--resting-chara', dest='resting_chara',
                  default = '*',
-                 help="character of the home state") 
+                 help="character of the resting state") 
     p.add_option('-t', '--title', dest='cal_title',
                  default='-',
                  help="title of this calculation. this information will be added to the output.")
@@ -117,20 +117,20 @@ def _main():
     if not opts.fn_state:
         sys.stderr.write("Error: Option '--i-state' is required.\n")
         flg_fail = True
-        #if not opts.home_state:
-        #sys.stderr.write("Error: Option '--home' is required.\n")
+        #if not opts.resting_state:
+        #sys.stderr.write("Error: Option '--resting' is required.\n")
         #flg_fail = True
     if flg_fail:
         sys.exit()
         
-    home = ""
-    if opts.home_state:
-        home = opts.home_state
+    resting = ""
+    if opts.resting_state:
+        resting = opts.resting_state
     else:
-        home = decide_home(opts.fn_state, opts.fn_dict, opts.home_chara)
-        print "Home state : " + home
+        resting = decide_resting(opts.fn_state, opts.fn_dict, opts.resting_chara)
+        print "Resting state : " + resting
         
-    cycles = analyze_state(opts.fn_state, home)
+    cycles = analyze_state(opts.fn_state, resting)
     output_cycles(opts.fn_cycles, cycles, opts.cal_title)
 
 if __name__ == '__main__':

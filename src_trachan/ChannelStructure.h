@@ -27,7 +27,7 @@ class ChannelStructure : public System{
   // site information
   std::vector<real> site_boundaries;
   real site_max_r;
-  real site_hight_margin;
+  real site_height_margin;
   // trace atom setting
   
   // information in each frame
@@ -55,7 +55,7 @@ class ChannelStructure : public System{
 
   //site information
   void set_site_max_radius(const real& in_r){ site_max_r = in_r; };
-  void set_site_hight_margin(const real& in_h){ site_hight_margin = in_h; };
+  void set_site_height_margin(const real& in_h){ site_height_margin = in_h; };
   void set_site_boundaries(std::vector<real>& in_b){site_boundaries = in_b;};
   int get_site_from_pore_axis(const real& h, const real& r);
   

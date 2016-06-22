@@ -210,8 +210,8 @@ string ChannelStructure::get_pore_axis_coords_for_density_analysis(){
     i_crd = pore_axis_crd.find(*i_atom);
     if(i_crd != pore_axis_crd.end() &&
        i_crd->second.second <= site_max_r &&
-       i_crd->second.first < (*site_boundaries.begin())+site_hight_margin &&
-       i_crd->second.first > (*--site_boundaries.end())-site_hight_margin)
+       i_crd->second.first < (*site_boundaries.begin())+site_height_margin &&
+       i_crd->second.first > (*--site_boundaries.end())-site_height_margin)
       ss << atom_info[*i_atom].get_atom_name() <<"\t"
 	 << i_crd->second.first * 10 << "\t"
 	 << i_crd->second.second * 10 << endl;
@@ -241,8 +241,8 @@ string ChannelStructure::get_pore_axis_coordinates_h_string(){
 
     if(i_crd != pore_axis_crd.end() &&
        i_crd->second.second <= site_max_r &&
-       i_crd->second.first < (*site_boundaries.begin())+site_hight_margin &&
-       i_crd->second.first > (*--site_boundaries.end())-site_hight_margin)
+       i_crd->second.first < (*site_boundaries.begin())+site_height_margin &&
+       i_crd->second.first > (*--site_boundaries.end())-site_height_margin)
       ss << "\t" << i_crd->second.first * 10;
     else
       ss << "\t-";
@@ -259,8 +259,8 @@ string ChannelStructure::get_pore_axis_coordinates_r_string(){
     i_crd = pore_axis_crd.find(*i_atom);
     if(i_crd != pore_axis_crd.end() &&
        i_crd->second.second <= site_max_r &&
-       i_crd->second.first < (*site_boundaries.begin())+site_hight_margin &&
-       i_crd->second.first > (*--site_boundaries.end())-site_hight_margin)
+       i_crd->second.first < (*site_boundaries.begin())+site_height_margin &&
+       i_crd->second.first > (*--site_boundaries.end())-site_height_margin)
       ss << "\t" << i_crd->second.second * 10; //nm -> angestrome
     else
       ss << "\t-";

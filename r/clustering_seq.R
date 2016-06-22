@@ -10,6 +10,6 @@ label.seq <- function(elem){
   elem
 }
 dend <- dendrapply(as.dendrogram(align.hc), label.seq)
-postscript("dendrobgram.eps")
+postscript("dendrogram.eps")
 plot(dend)
 dev.off()

@@ -71,8 +71,8 @@ void Config::set_all(const vector<string>& arg){
       pore_axis_basis_atomname_b.push_back((*++itr).c_str());
     }else if(*itr == "--site-max-radius"){
       site_max_radius = atof((*++itr).c_str()) * 0.1; // angestrome to nm
-    }else if(*itr == "--site-hight-margin"){
-      site_hight_margin = atof((*++itr).c_str()) * 0.1; // angestrome to nm
+    }else if(*itr == "--site-height-margin"){
+      site_height_margin = atof((*++itr).c_str()) * 0.1; // angestrome to nm
     }else if(*itr == "--site-boundary"){
       site_boundaries.push_back(atof((*++itr).c_str()) * 0.1); // angestrome to nm
     }else if(*itr == "--channel-chain-id"){

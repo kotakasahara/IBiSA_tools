@@ -11,14 +11,16 @@ import json
 def print_sites(boundaries, sitenames):
     print "[SITE DEFINITION]"
     print "out of sites"
-    i = 1
+    i = 0
+    print "site: " + sitenames[i]
     for b in boundaries[:-1]:
+        i+=1
         print b
         print " |  site: " + sitenames[i]
-        i+=1
-    print boundaries[-1]
 
+    print boundaries[-1]
     print "out of sites"
+    i += 1
     if i < len(sitenames):
         print "[IGNORED]"
         for j in range(i,len(sitenames)):

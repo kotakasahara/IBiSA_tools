@@ -190,7 +190,7 @@ int TraChan::mode_site_occupancy(){
   
   cs.set_trace_atom_id_from_atom_names(cfg.trace_atom_names);
   cs.set_site_max_radius(cfg.site_max_radius);
-  cs.set_site_hight_margin(cfg.site_hight_margin);
+  cs.set_site_height_margin(cfg.site_height_margin);
   cs.set_site_boundaries(cfg.site_boundaries);
 
   ////// prepare output files /////

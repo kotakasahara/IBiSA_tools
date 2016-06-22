@@ -16,8 +16,8 @@ def convert_options(opts):
     cfg["files"]["permeation-event"] = opts.fn_permeation_event
     cfg["target-atoms"] = []
     cfg["boundary-r"] = opts.boundary_r
-    cfg["boundary-h-nega-high"] = opts.boundary_h_nega_high
-    cfg["boundary-h-posi-low"] = opts.boundary_h_posi_low
+    cfg["boundary-low"] = opts.boundary_low
+    cfg["boundary-up"] = opts.boundary_up
     for at in opts.target_atoms:
         at_config = {}
         at_config["name"] = at
@@ -44,8 +44,8 @@ def convert_options(opts):
 def analyze_run(fn_in, fn_in_r, fn_out,
                 target_atoms_conf,
                 boundary_r,
-                boundary_h_nega_high,
-                boundary_h_posi_low,
+                boundary_low,
+                boundary_up,
                 t_begin, t_end):  
     target_atoms = []
     for conf in target_atoms_conf:
@@ -124,10 +124,10 @@ def analyze_run(fn_in, fn_in_r, fn_out,
             else:
                 field_a = 0
                 if ion_states[atom_id][0] >= 0: field_a += 2
-                if crd < boundary_h_nega_high: ## or (frame==first_frame and crd<0.0):
+                if crd < boundary_low: ## or (frame==first_frame and crd<0.0):
                     ion_states[atom_id][field_a] = frame
                     ion_states[atom_id][field_a+1] = "-"
-                elif crd > boundary_h_posi_low: ## or (frame==first_frame and crd>=0.0):
+                elif crd > boundary_up: ## or (frame==first_frame and crd>=0.0):
                     ion_states[atom_id][field_a] = frame
                     ion_states[atom_id][field_a+1] = "+"
                 #print ion_state[atom_id]
@@ -162,12 +162,12 @@ def _main():
     p.add_option('--b-r', dest="boundary_r",
                  type="float", default = -1.0,
                  help="maximum r value to be considered")
-    p.add_option('--b-h-posi-low', dest="boundary_h_posi_low",
+    p.add_option('--b-h-up', dest="boundary_up",
                  type="float", default = -1.0,
-                 help="lower boundaries in h axis for positive h")
-    p.add_option('--b-h-nega-high', dest="boundary_h_nega_high",
+                 help="upper boundary in h axis")
+    p.add_option('--b-h-low', dest="boundary_low",
                  type="float", default = -1.0,
-                 help="higher boundaries in h axis for negative h")
+                 help="lower boundary in h axis")
     p.add_option('-c', dest="fn_config",
                  help="file name for settings in json")
     p.add_option('--begin', dest="begin",
@@ -186,8 +186,8 @@ def _main():
                 cfg["files"]["permeation-event"],
                 cfg["target-atoms"],
                 cfg["boundary-r"],
-                cfg["boundary-h-nega-high"],
-                cfg["boundary-h-posi-low"],
+                cfg["boundary-low"],
+                cfg["boundary-up"],
                 cfg["time"]["begin"], cfg["time"]["end"])
         
 if __name__ == '__main__':

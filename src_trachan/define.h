@@ -4,8 +4,8 @@
 #include <string>
 
 static std::string developer = "Kota Kasahara";
-static std::string affiliation = "Grad. Sch. Information Sci., Tohoku Univ.";
-static std::string email = "kasahara@ecei.tohoku.ac.jp";
+static std::string affiliation = "College of Life Sciences, Ritsumeikan University";
+static std::string email = "ktkshr@fc.ritsumei.ac.jp":
 static std::string citation = "in preparation";
 
 static std::string cp = 

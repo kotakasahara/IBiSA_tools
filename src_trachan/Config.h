@@ -42,7 +42,7 @@ class Config{
 
   // site settings
   real site_max_radius; // --site-max-radius
-  real site_hight_margin; // --site-hight-margin
+  real site_height_margin; // --site-height-margin
   std::vector<real> site_boundaries; // --site-boundary
 
   std::list<char> channel_chain_id; // --channel-chain-id
