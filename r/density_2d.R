@@ -1,6 +1,6 @@
 
 
-dd <- read.table("density_distribution.txt.K",header=T)
+dd <- read.table("density_distribution.txt",header=T)
 dd <- as.matrix(dd)
 dd.r <- dd.k/sum(dd)
 

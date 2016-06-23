@@ -8,7 +8,7 @@
 #define HAVE_MEMORY_H 1
 
 /* Define to 1 if you have the `sqrt' function. */
-/* #undef HAVE_SQRT */
+#define HAVE_SQRT 1
 
 /* Define to 1 if stdbool.h conforms to C99. */
 #define HAVE_STDBOOL_H 1
