@@ -1,5 +1,5 @@
 align.sim <- read.table("align_sim.txt", header=T)
-seq <- read.table("sequences_header.txt")[,-1]
+seq <- read.table("sequences_header.txt", comment.char="")[,-1]
 colnames(seq) <- c("seq.id","run.id", "seq", "begin","end","run.title")
 align.d <- as.dist(1-align.sim)
 align.hc <- hclust(align.d, method="complete")

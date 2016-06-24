@@ -1,17 +1,17 @@
 # IBiSA_tools
 
-IBiSA_tools is a 
+IBiSA_tools is a computational toolkit for performing the ion-binding state analysis, based on the molecular dynamics trajectory data.
 
 ## Software Requirements
 
 * A C++ compiler
-* Python (2.6 or later)
+* Python (2.6 or 2.7)
 * Optional: R
 * Optional: Cytoscape
 
 ## Installation
 
-Only a C++ program, trachan, requires compiling.
+Only a C++ program, TraChan, requires compiling.
 
   cd src/trachan
   ./configure

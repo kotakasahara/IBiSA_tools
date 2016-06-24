@@ -7,15 +7,16 @@
 \contentsline {section}{\numberline {2.1}Setting the path to IBiSA\_tools}{5}{section.2.1}
 \contentsline {section}{\numberline {2.2}Preparing the configuration file}{5}{section.2.2}
 \contentsline {section}{\numberline {2.3}Executing ``trachan''}{6}{section.2.3}
-\contentsline {section}{\numberline {2.4}Detecting ion conduction event}{7}{section.2.4}
-\contentsline {section}{\numberline {2.5}Analyzing The density distribution}{7}{section.2.5}
-\contentsline {section}{\numberline {2.6}Discretizing the trajectory based on ion-binding sites}{8}{section.2.6}
-\contentsline {section}{\numberline {2.7}Analyzing the trajectories of each ion}{9}{section.2.7}
-\contentsline {section}{\numberline {2.8}Generating the ion-binding state graph::}{9}{section.2.8}
-\contentsline {section}{\numberline {2.9}Extracting cyclic paths from the state trajectory::}{9}{section.2.9}
-\contentsline {section}{\numberline {2.10}Converting states into characters. A cyclic parts transformed into a sequence::}{10}{section.2.10}
-\contentsline {section}{\numberline {2.11}Generating score matrix of states}{10}{section.2.11}
-\contentsline {section}{\numberline {2.12}Performing the sequence alignment}{10}{section.2.12}
-\contentsline {section}{\numberline {2.13}Make the similarity matrix of cyclic paths}{11}{section.2.13}
-\contentsline {section}{\numberline {2.14}Clustering aligned sequences by using R}{11}{section.2.14}
+\contentsline {section}{\numberline {2.4}Drawing the trajectory of ions along the pore axis}{7}{section.2.4}
+\contentsline {section}{\numberline {2.5}Analyzing the histogram of ions}{7}{section.2.5}
+\contentsline {section}{\numberline {2.6}Analyzing the density distribution of ions along the pore axis}{8}{section.2.6}
+\contentsline {section}{\numberline {2.7}Discretizing the trajectory based on ion-binding sites}{8}{section.2.7}
+\contentsline {section}{\numberline {2.8}Analyzing the trajectories of each ion}{9}{section.2.8}
+\contentsline {section}{\numberline {2.9}Generating the ion-binding state graph::}{9}{section.2.9}
+\contentsline {section}{\numberline {2.10}Extracting cyclic paths from the state trajectory::}{10}{section.2.10}
+\contentsline {section}{\numberline {2.11}Converting states into characters. A cyclic parts transformed into a sequence::}{10}{section.2.11}
+\contentsline {section}{\numberline {2.12}Generating score matrix of states}{11}{section.2.12}
+\contentsline {section}{\numberline {2.13}Performing the sequence alignment}{11}{section.2.13}
+\contentsline {section}{\numberline {2.14}Make the similarity matrix of cyclic paths}{11}{section.2.14}
+\contentsline {section}{\numberline {2.15}Clustering aligned sequences by using R}{12}{section.2.15}
 \contentsline {chapter}{\numberline {3}Indices and tables}{13}{chapter.3}

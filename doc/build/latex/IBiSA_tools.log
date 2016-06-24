@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2016.6.21)  22 JUN 2016 15:57
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2016.6.21)  24 JUN 2016 16:14
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1105,59 +1105,67 @@ Chapter 2.
 LaTeX Font Info:    Font shape `T1/pcr/m/it' in size <9> not available
 (Font)              Font shape `T1/pcr/m/sl' tried instead on input line 213.
 LaTeX Font Info:    Font shape `T1/pcr/bx/n' in size <9> not available
-(Font)              Font shape `T1/pcr/b/n' tried instead on input line 228.
+(Font)              Font shape `T1/pcr/b/n' tried instead on input line 230.
 [5
 
-] [6] <density_distribution.png, id=163, 481.8pt x 334.24875pt>
-File: density_distribution.png Graphic file (type png)
+] [6]
+Underfull \hbox (badness 10000) in paragraph at lines 333--335
+[]\T1/ptm/m/n/10 --i-pore-crd-h pore_axis.txt --i-pore-crd-r
+ []
 
-<use density_distribution.png>
-Package pdftex.def Info: density_distribution.png used on input line 364.
-(pdftex.def)             Requested size: 481.79881pt x 334.24792pt.
-File: density_distribution.png Graphic file (type png)
- <use density_distribution.png>
-Package pdftex.def Info: density_distribution.png used on input line 364.
-(pdftex.def)             Requested size: 469.755pt x 325.90396pt.
- [7]
-LaTeX Font Info:    Try loading font information for TS1+pcr on input line 380.
+<pore_axis_traj.png, id=168, 1319.93124pt x 672.5125pt>
+File: pore_axis_traj.png Graphic file (type png)
+
+<use pore_axis_traj.png>
+Package pdftex.def Info: pore_axis_traj.png used on input line 360.
+(pdftex.def)             Requested size: 284.52756pt x 144.96704pt.
+ [7 <./pore_axis_traj.png>]
+<distribution.png, id=173, 1735.48375pt x 1139.25626pt>
+File: distribution.png Graphic file (type png)
+ <use distribution.png>
+Package pdftex.def Info: distribution.png used on input line 389.
+(pdftex.def)             Requested size: 284.52756pt x 186.7697pt.
+LaTeX Font Info:    Try loading font information for TS1+pcr on input line 405.
 
 
 (/usr/local/texlive/2016/texmf-dist/tex/latex/psnfss/ts1pcr.fd
 File: ts1pcr.fd 2001/06/04 font definitions for TS1/pcr.
-) [8 <./density_distribution.png>] [9] [10] <dendrogram.png, id=183, 318.18875p
-t x 190.7125pt>
-File: dendrogram.png Graphic file (type png)
+) [8 <./distribution.png>] <network.png, id=180, 1539.7525pt x 1020.81375pt>
+File: network.png Graphic file (type png)
+ <use network.png>
+Package pdftex.def Info: network.png used on input line 467.
+(pdftex.def)             Requested size: 284.52756pt x 188.62952pt.
 
-<use dendrogram.png>
-Package pdftex.def Info: dendrogram.png used on input line 581.
-(pdftex.def)             Requested size: 318.18796pt x 190.71202pt.
+[9 <./network.png>] [10] [11]
+<dendrogram.png, id=197, 1811.76875pt x 832.10875pt>
 File: dendrogram.png Graphic file (type png)
  <use dendrogram.png>
-Package pdftex.def Info: dendrogram.png used on input line 581.
-(pdftex.def)             Requested size: 318.18796pt x 190.71202pt.
- [11 <./dendrogram.png>] [12
+Package pdftex.def Info: dendrogram.png used on input line 635.
+(pdftex.def)             Requested size: 284.52756pt x 130.67691pt.
 
-]
+[12 <./dendrogram.png>]
 Chapter 3.
 (./IBiSA_tools.ind)
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 601.
- [13]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 601.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 655.
+ [13
+
+]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 655.
  (./IBiSA_tools.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 601.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 601.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 655.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 655.
 Package rerunfilecheck Info: File `IBiSA_tools.out' has not changed.
-(rerunfilecheck)             Checksum: 04C20D69BD8C27C0A8D99F7FB68BB56E;4316.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 601.
+(rerunfilecheck)             Checksum: 73A4C97AA08E1614AD674C5357335758;4812.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 655.
  ) 
 Here is how much of TeX's memory you used:
- 13378 strings out of 493014
- 182826 string characters out of 6133351
- 333666 words of memory out of 5000000
- 16572 multiletter control sequences out of 15000+600000
+ 13391 strings out of 493014
+ 183085 string characters out of 6133351
+ 334775 words of memory out of 5000000
+ 16582 multiletter control sequences out of 15000+600000
  59338 words of font info for 76 fonts, out of 8000000 for 9000
  1142 hyphenation exceptions out of 8191
- 36i,12n,45p,1205b,477s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 36i,11n,45p,1205b,445s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2016/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/t
 exlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/local/tex
 live/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/local/texli
@@ -1168,10 +1176,10 @@ s/type1/urw/helvetic/uhvb8a.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1
 /urw/helvetic/uhvbo8a.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/urw/t
 imes/utmb8a.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/urw/times/utmr8
 a.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on IBiSA_tools.pdf (17 pages, 148272 bytes).
+Output written on IBiSA_tools.pdf (17 pages, 654820 bytes).
 PDF statistics:
- 246 PDF objects out of 1000 (max. 8388607)
- 205 compressed objects within 3 object streams
- 40 named destinations out of 1000 (max. 500000)
- 191 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 254 PDF objects out of 1000 (max. 8388607)
+ 210 compressed objects within 3 object streams
+ 41 named destinations out of 1000 (max. 500000)
+ 209 words of extra memory for PDF output out of 10000 (max. 10000000)
 
