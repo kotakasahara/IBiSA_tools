@@ -12,13 +12,8 @@ Contents:
    :maxdepth: 2
 
    about
+   overview
    tutorial
+   appendix
 
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
 

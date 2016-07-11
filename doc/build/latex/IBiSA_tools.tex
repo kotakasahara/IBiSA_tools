@@ -28,7 +28,7 @@
 
 
 \title{IBiSA\_tools Documentation}
-\date{Jun 24, 2016}
+\date{Jul 11, 2016}
 \release{0.14}
 \author{Kota Kasahara}
 \newcommand{\sphinxlogo}{}
@@ -173,10 +173,8 @@ Kasahara K, Shirota M, and Kinoshita K (2013) Ion Concentration-Dependent Ion Co
 \end{itemize}
 
 
-\section{Overview}
-\label{about:overview}
-IBiSA\_tools, which stands for ``Ion Binding State Analysis tools'', provides a computational tools for analyzing ion conduction mechanisms hidden in the molecular dynamics (MD) trajectory data. In this analysis, each ion conduction event is detected and mechanisms of the events are identified. See the citations for details of theory and applications.
-\begin{itemize}
+\section{Requirements}
+\label{about:requirements}\begin{itemize}
 \item {} 
 The current version of IBiSA\_tools can be applied only for GROMACS trajectory file (.trr). If your trajectories are written in another format, you have to convert it into .trr, by using some tools, e.g., VMD plugin and MDAnalysis.
 
@@ -191,8 +189,14 @@ Network drawing software, e.g., Cytoscape, is required to visualize ion binding 
 
 \end{itemize}
 
+
+\section{Download}
+\label{about:download}
 \url{http://kotakasahara.github.com}
 
+
+\section{Installation}
+\label{about:installation}
 Only a C++ program, trachan, must be compiled as follows:
 
 \begin{Verbatim}[commandchars=\\\{\}]
@@ -202,6 +206,15 @@ Only a C++ program, trachan, must be compiled as follows:
 \end{Verbatim}
 
 In this document, we assume the binary and python scripts are included at the directory indicated by \$\{IBISA\}.
+
+
+\chapter{Overview}
+\label{overview:overview}\label{overview::doc}
+IBiSA\_tools, which stands for ``Ion Binding State Analysis tools'', provides a computational tools for analyzing ion conduction mechanisms hidden in the molecular dynamics (MD) trajectory data. This analysis provides a varitery of information about each ion conduction event and overall properties. See the citations for details of theory and applications.
+
+\includegraphics[width=16cm]{{fig_overview_detail}.png}
+
+A list of programs contained in \emph{IBiSA\_tools} (the left column in A) and the default names of input/output files (the right column in B) are summarized. The panels B, C, D, and E are schematic image of output figures.
 
 
 \chapter{Tutorial}
@@ -635,18 +648,25 @@ R \PYGZhy{}\PYGZhy{}vanilla \PYGZhy{}\PYGZhy{}slave \PYGZlt{} \PYGZdl{}IBISA/r/c
 \includegraphics[width=10cm]{{dendrogram}.png}
 
 
-\chapter{Indices and tables}
-\label{index:indices-and-tables}\begin{itemize}
-\item {} 
-\DUrole{xref,std,std-ref}{genindex}
+\chapter{Appendix}
+\label{appendix:appendix}\label{appendix::doc}
 
-\item {} 
-\DUrole{xref,std,std-ref}{modindex}
+\section{Converting a trajectory file}
+\label{appendix:converting-a-trajectory-file}
+\emph{IBiSA\_tools} can read only .trr file. When you analyze trajectories written in other format, they have to be converted into .trr file.
 
-\item {} 
-\DUrole{xref,std,std-ref}{search}
+Some tools for the conversion exist. Here, a sample code powered by the Python library \emph{MDAnalysis} is presented.:
 
-\end{itemize}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k+kn}{import} \PYG{n+nn}{MDAnalysis}
+
+\PYG{n}{u} \PYG{o}{=} \PYG{n}{MDAnalysis}\PYG{o}{.}\PYG{n}{Universe}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{initial.pdb}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{trajectory.ncdf}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{)}
+\PYG{n}{writer} \PYG{o}{=} \PYG{n}{MDAnalysis}\PYG{o}{.}\PYG{n}{coordinates}\PYG{o}{.}\PYG{n}{TRJ}\PYG{o}{.}\PYG{n}{TRRWriter}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{trajectory.trr}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,} \PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{u}\PYG{o}{.}\PYG{n}{atoms}\PYG{p}{)}\PYG{p}{)}
+\PYG{k}{for} \PYG{n}{ts} \PYG{o+ow}{in} \PYG{n}{u}\PYG{o}{.}\PYG{n}{trajectory}\PYG{p}{:}
+    \PYG{n}{writer}\PYG{o}{.}\PYG{n}{write\PYGZus{}next\PYGZus{}timestep}\PYG{p}{(}\PYG{n}{ts}\PYG{p}{)}
+\end{Verbatim}
+
+The script convert \emph{trajectory.ncdf} (AMBER, NetCDF file) into \emph{trajectory.trr} file (GROMACS, .trr file). \emph{initial.pdb} is the initial coordinates writtein in the flat .pdb format.
 
 
 
