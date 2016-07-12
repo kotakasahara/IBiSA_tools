@@ -5,7 +5,7 @@ Appendix
 Converting a trajectory file
 -------------------------------------------------------------------------
 
-*IBiSA_tools* can read only .trr file. When you analyze trajectories written in other format, they have to be converted into .trr file.
+*IBiSA_tools* can read only .trr format. When you analyze trajectories written in other format, the files have to be converted into .trr file.
 
 Some tools for the conversion exist. Here, a sample code powered by the Python library *MDAnalysis* is presented.::
 
@@ -16,5 +16,5 @@ Some tools for the conversion exist. Here, a sample code powered by the Python l
   for ts in u.trajectory:
       writer.write_next_timestep(ts)
 
-The script convert *trajectory.ncdf* (AMBER, NetCDF file) into *trajectory.trr* file (GROMACS, .trr file). *initial.pdb* is the initial coordinates writtein in the flat .pdb format.
+The script converts *trajectory.ncdf* (AMBER, NetCDF file) into *trajectory.trr* file (GROMACS, .trr file). *initial.pdb* is the initial coordinates writtein in the flat .pdb format.
 

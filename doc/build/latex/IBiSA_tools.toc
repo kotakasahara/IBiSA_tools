@@ -9,14 +9,14 @@
 \contentsline {chapter}{\numberline {3}Tutorial}{7}{chapter.3}
 \contentsline {section}{\numberline {3.1}Setting the path to IBiSA\_tools}{7}{section.3.1}
 \contentsline {section}{\numberline {3.2}Preparing the configuration file}{7}{section.3.2}
-\contentsline {section}{\numberline {3.3}Executing ``trachan''}{8}{section.3.3}
-\contentsline {section}{\numberline {3.4}Drawing the trajectory of ions along the pore axis}{9}{section.3.4}
-\contentsline {section}{\numberline {3.5}Analyzing the histogram of ions}{9}{section.3.5}
-\contentsline {section}{\numberline {3.6}Analyzing the density distribution of ions along the pore axis}{10}{section.3.6}
+\contentsline {section}{\numberline {3.3}Converting a trajectory into the pore axis coordinates}{8}{section.3.3}
+\contentsline {section}{\numberline {3.4}Drawing a trajectory of ions along the pore axis}{9}{section.3.4}
+\contentsline {section}{\numberline {3.5}Analyzing a histogram of ions}{9}{section.3.5}
+\contentsline {section}{\numberline {3.6}Analyzing the density distribution of ions along the pore axis}{9}{section.3.6}
 \contentsline {section}{\numberline {3.7}Discretizing the trajectory based on ion-binding sites}{10}{section.3.7}
-\contentsline {section}{\numberline {3.8}Analyzing the trajectories of each ion}{11}{section.3.8}
-\contentsline {section}{\numberline {3.9}Generating the ion-binding state graph::}{11}{section.3.9}
-\contentsline {section}{\numberline {3.10}Extracting cyclic paths from the state trajectory::}{12}{section.3.10}
+\contentsline {section}{\numberline {3.8}Analyzing the trajectories of each ion}{10}{section.3.8}
+\contentsline {section}{\numberline {3.9}Generating the ion-binding state graph}{11}{section.3.9}
+\contentsline {section}{\numberline {3.10}Extracting cyclic paths from the state trajectory}{12}{section.3.10}
 \contentsline {section}{\numberline {3.11}Converting states into characters. A cyclic parts transformed into a sequence::}{12}{section.3.11}
 \contentsline {section}{\numberline {3.12}Generating score matrix of states}{13}{section.3.12}
 \contentsline {section}{\numberline {3.13}Performing the sequence alignment}{13}{section.3.13}

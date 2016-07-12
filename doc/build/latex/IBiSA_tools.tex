@@ -28,8 +28,8 @@
 
 
 \title{IBiSA\_tools Documentation}
-\date{Jul 11, 2016}
-\release{0.14}
+\date{Jul 12, 2016}
+\release{1.00}
 \author{Kota Kasahara}
 \newcommand{\sphinxlogo}{}
 \renewcommand{\releasename}{Release}
@@ -148,13 +148,13 @@ Contents:
 
 \section{Authors}
 \label{about:authors}
-IBiSA\_tools version 0.12 (12 Jun. 2016)
+IBiSA\_tools version 1.00 (12 Jul. 2016)
 \begin{itemize}
 \item {} 
-Kota Kasahara, Ritsumeikan University
+Kota Kasahara, Ritsumeikan University, Japan
 
 \item {} 
-Kengo Kinoshita, Tohoku University
+Kengo Kinoshita, Tohoku University, Japan
 
 \end{itemize}
 
@@ -176,7 +176,7 @@ Kasahara K, Shirota M, and Kinoshita K (2013) Ion Concentration-Dependent Ion Co
 \section{Requirements}
 \label{about:requirements}\begin{itemize}
 \item {} 
-The current version of IBiSA\_tools can be applied only for GROMACS trajectory file (.trr). If your trajectories are written in another format, you have to convert it into .trr, by using some tools, e.g., VMD plugin and MDAnalysis.
+The current version of IBiSA\_tools can be applied only for GROMACS trajectory file (.trr). If your trajectories are written in another format, you have to convert it into .trr, by using some tools, e.g., VMD plugin and MDAnalysis (see Appendix).
 
 \item {} 
 IBiSA\_tools is consisting of a C++ program and Python (2.6 or 2.7) scripts.
@@ -185,14 +185,14 @@ IBiSA\_tools is consisting of a C++ program and Python (2.6 or 2.7) scripts.
 The attached tutorial files use R software (www.r-project.org) to draw plots.
 
 \item {} 
-Network drawing software, e.g., Cytoscape, is required to visualize ion binding state graph.
+Network drawing software, e.g., Cytoscape, is required to visualize ion-binding state graph.
 
 \end{itemize}
 
 
 \section{Download}
 \label{about:download}
-\url{http://kotakasahara.github.com}
+\url{https://github.com/kotakasahara/IBiSA\_tools}
 
 
 \section{Installation}
@@ -205,16 +205,16 @@ Only a C++ program, trachan, must be compiled as follows:
 \PYG{n}{make}
 \end{Verbatim}
 
-In this document, we assume the binary and python scripts are included at the directory indicated by \$\{IBISA\}.
+In this document, we assume the binary and python scripts are included in the directory indicated as \$\{IBISA\}.
 
 
 \chapter{Overview}
 \label{overview:overview}\label{overview::doc}
-IBiSA\_tools, which stands for ``Ion Binding State Analysis tools'', provides a computational tools for analyzing ion conduction mechanisms hidden in the molecular dynamics (MD) trajectory data. This analysis provides a varitery of information about each ion conduction event and overall properties. See the citations for details of theory and applications.
+\emph{IBiSA\_tools}, which stands for ``Ion-Binding State Analysis tools'', provides a computational tools for analyzing ion conduction mechanisms hidden in the molecular dynamics (MD) trajectory data. This analysis provides a varitery of information about each ion conduction event and overall properties. See the citations for details of theory and applications.
 
 \includegraphics[width=16cm]{{fig_overview_detail}.png}
 
-A list of programs contained in \emph{IBiSA\_tools} (the left column in A) and the default names of input/output files (the right column in B) are summarized. The panels B, C, D, and E are schematic image of output figures.
+A list of programs contained in \emph{IBiSA\_tools} (the left column in A) and the default names of input/output files (the right column in A) are summarized. The panels B, C, D, and E are schematic images of output figures (reprinted from our paper).
 
 
 \chapter{Tutorial}
@@ -223,7 +223,7 @@ A list of programs contained in \emph{IBiSA\_tools} (the left column in A) and t
 \section{Setting the path to IBiSA\_tools}
 \label{tutorial:setting-the-path-to-ibisa-tools}
 \begin{Verbatim}[commandchars=\\\{\}]
-\PYG{n}{export} \PYG{n}{IBISA}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{\PYGZdl{}}\PYG{l+s+si}{\PYGZob{}HOME\PYGZcb{}}\PYG{l+s+s2}{/local/ibisa}\PYG{l+s+s2}{\PYGZdq{}}
+\PYG{n}{export} \PYG{n}{IBISA}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{\PYGZdl{}}\PYG{l+s+si}{\PYGZob{}HOME\PYGZcb{}}\PYG{l+s+s2}{/local/IBiSA\PYGZus{}tools}\PYG{l+s+s2}{\PYGZdq{}}
 \end{Verbatim}
 
 Set your own install directory.
@@ -258,46 +258,43 @@ config.txt:
 Each line indicate a set of key and values.
 \begin{itemize}
 \item {} 
-\emph{--mode} is always ``sice-occupancy''. This field is for future extensions.
-
-\item {} 
 \emph{--fn-pdb} is the initial structure file.
 
 \item {} 
-\emph{--dt} is the delta-t for the trajectory file
+\emph{--dt} is the time step of the trajectory file
 
 \item {} 
-\emph{--site-max-radius} is the maximum radius of ion channel pore.
+\emph{--site-boundary} is specified two values, 20.0 and -25.0. This setting means that the range from 20.0 to -25.0 in the pore axis will be analyzed. The origin of the pore axis is set by \emph{--pore-axis-basis-from} key.
 
 \item {} 
-\emph{--site-boundary} is specified two values, 20.0 and -25.0. This setting means that the range from 20.0 \textgreater{} z \textgreater{} -25.0 in the pore axis will be analyzed. The origin is set by \emph{--pore-axis-basis-from} key.
-
-\item {} 
-\emph{--fn-pore-axis-coordinates} and \emph{--fn-pore-axis-coordinates-r} are the output filenames.
+\emph{--fn-pore-axis-coordinates} and \emph{--fn-pore-axis-coordinates-r} are the output file names.
 
 \item {} 
 \emph{--pore-axis-basis-from} specifies the origin of the pore axis. ``A 374 O'' means the O atom in the residue 374 of the chain A. In this tutorial, four oxigen atoms are specified. The center of these atoms is set to be the origin of the pore axis.
 
 \item {} 
-\emph{--pore-axis-basis-to} is the direction of the pore axis. The line from the center of \emph{...-from} to the center of \emph{...-to} defines the pore axis.
+\emph{--pore-axis-basis-to} defines the direction of the pore axis. The line from the center of \emph{...-from} to the center of \emph{...-to} defines the pore axis.
+
+\item {} 
+\emph{--site-max-radius} is the maximum radius of ion channel pore.
 
 \item {} 
 \emph{--site-height-margin} is the margin length along the pore axis. In this case, the range from 20.0+5.0 to -25.0-5.0 will be analyzed.
 
 \item {} 
-\emph{--channel-chain-id} specifies chain ids of a channel protein.
+\emph{--channel-chain-id} specifies chain IDs of a channel protein.
 
 \item {} 
 \emph{--trace-atom-name} specifies the atom name of target ions, defined in the .pdb file.
 
 \item {} 
-\emph{--fn-trr} is the file name of the trajectory.
+\emph{--fn-trr} is the file name of the trajectory. Multiple files can be specified.
 
 \end{itemize}
 
 
-\section{Executing ``trachan''}
-\label{tutorial:executing-trachan}
+\section{Converting a trajectory into the pore axis coordinates}
+\label{tutorial:converting-a-trajectory-into-the-pore-axis-coordinates}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PYGZdl{}IBISA/bin/trachan \PYGZhy{}\PYGZhy{}fn\PYGZhy{}cfg config.txt
 \end{Verbatim}
@@ -313,7 +310,7 @@ Some text should appear in the standard output:
 \PYG{n}{This} \PYG{n}{software} \PYG{o+ow}{is} \PYG{n}{distributed} \PYG{n}{under} \PYG{n}{the} \PYG{n}{terms} \PYG{n}{of} \PYG{n}{the} \PYG{n}{GPL} \PYG{n}{license}
 
 \PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZhy{}}
-\PYG{n}{This} \PYG{n}{program} \PYG{o+ow}{is} \PYG{n}{contains} \PYG{n}{some} \PYG{n}{parts} \PYG{n}{of} \PYG{n}{the} \PYG{n}{source} \PYG{n}{code} \PYG{n}{of} \PYG{n}{GROMACS}
+\PYG{n}{This} \PYG{n}{program} \PYG{n}{contains} \PYG{n}{some} \PYG{n}{parts} \PYG{n}{of} \PYG{n}{the} \PYG{n}{source} \PYG{n}{code} \PYG{n}{of} \PYG{n}{GROMACS}
 \PYG{n}{software}\PYG{o}{.} \PYG{n}{Check} \PYG{n}{out} \PYG{n}{http}\PYG{p}{:}\PYG{o}{/}\PYG{o}{/}\PYG{n}{www}\PYG{o}{.}\PYG{n}{gromacs}\PYG{o}{.}\PYG{n}{org} \PYG{n}{about} \PYG{n}{GROMACS}\PYG{o}{.}
 \PYG{n}{Copyright} \PYG{p}{(}\PYG{n}{c}\PYG{p}{)} \PYG{l+m+mi}{1991}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{2000}\PYG{p}{,} \PYG{n}{University} \PYG{n}{of} \PYG{n}{Groningen}\PYG{p}{,} \PYG{n}{The} \PYG{n}{Netherlands}
 \PYG{n}{Copyright} \PYG{p}{(}\PYG{n}{c}\PYG{p}{)} \PYG{l+m+mi}{2001}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{2010}\PYG{p}{,} \PYG{n}{The} \PYG{n}{GROMACS} \PYG{n}{development} \PYG{n}{team} \PYG{n}{at}
@@ -340,30 +337,11 @@ Some text should appear in the standard output:
 
 And the two output files, \emph{pore\_axis.txt} and \emph{pore\_axis\_r.txt} will be obtained.
 
-They are tab-separated text. The first column indicate the time, and the other columns correspond to each potassium ion. Each row indicates the position of each ion at the time. \emph{pore\_axis.txt} and \emph{pore\_axis\_r.txt} record the coordinates along the pore axis and those along the radial direction parpendicular to the pore axis.
-\begin{quote}
-\begin{description}
-\item[{python \$IBISA/bin/detect\_ion\_permeation.py }] \leavevmode
---i-pore-crd-h pore\_axis.txt --i-pore-crd-r pore\_axis\_r.txt --o-permeation-event permeation\_event.txt --atom K --b-r 10 --b-h-up 20 --b-h-low -25
-
-\end{description}
-
-Trace each potassium ion travelling from -25 to 20 in z-axis. This script does not consider whether the ion through inside the pore or not.
-The output file \emph{permeation\_event.txt}:
-
-6961    K       -       +       5950    21400
-6986    K       -       +       10370   30830
-6974    K       -       +       11010   38810
-6953    K       -       +       28720   44950
-6968    K       -       +       36780   47280
-6961    K       -       +       39150   48360
-
-The first column is the ID of ion, the symbols \emph{-} and \emph{+} means that the ion permeated from the \emph{-} side to the \emph{+} side. The last two columns indicate times when the ion enters and goes out the defined region.
-\end{quote}
+They are tab-separated text files. The first column indicates the time, and the other columns correspond to the coordinate of each potassium ion. Each row indicates the positions in each snapshot. \emph{pore\_axis.txt} and \emph{pore\_axis\_r.txt} record the coordinates along the pore axis and those along the radial direction parpendicular to the pore axis.
 
 
-\section{Drawing the trajectory of ions along the pore axis}
-\label{tutorial:drawing-the-trajectory-of-ions-along-the-pore-axis}
+\section{Drawing a trajectory of ions along the pore axis}
+\label{tutorial:drawing-a-trajectory-of-ions-along-the-pore-axis}
 \begin{Verbatim}[commandchars=\\\{\}]
 R \PYGZhy{}\PYGZhy{}vanilla \PYGZhy{}\PYGZhy{}slave \PYGZlt{} \PYGZdl{}IBISA/r/pore\PYGZus{}axis\PYGZus{}traj.R
 \end{Verbatim}
@@ -373,8 +351,8 @@ R \PYGZhy{}\PYGZhy{}vanilla \PYGZhy{}\PYGZhy{}slave \PYGZlt{} \PYGZdl{}IBISA/r/p
 \includegraphics[width=10cm]{{pore_axis_traj}.png}
 
 
-\section{Analyzing the histogram of ions}
-\label{tutorial:analyzing-the-histogram-of-ions}
+\section{Analyzing a histogram of ions}
+\label{tutorial:analyzing-a-histogram-of-ions}
 Histogram of ion frequency over the 2D pore axis space can be drawn by:
 
 \begin{Verbatim}[commandchars=\\\{\}]
@@ -384,8 +362,7 @@ python \PYGZdl{}IBISA/bin/ion\PYGZus{}histogram.py \PYGZbs{}
   \PYGZhy{}\PYGZhy{}o\PYGZhy{}histogram histogram.txt \PYGZbs{}
   \PYGZhy{}\PYGZhy{}atomname K
 
-
-  R \PYGZhy{}\PYGZhy{}vanilla \PYGZhy{}\PYGZhy{}slave \PYGZlt{} \PYGZdl{}IBISA/r/histogram.R
+R \PYGZhy{}\PYGZhy{}vanilla \PYGZhy{}\PYGZhy{}slave \PYGZlt{} \PYGZdl{}IBISA/r/histogram.R
 \end{Verbatim}
 
 \emph{histogram.eps} is the 1D and 2D histogram of ions.
@@ -401,13 +378,13 @@ R \PYGZhy{}\PYGZhy{}vanilla \PYGZhy{}\PYGZhy{}slave \PYGZlt{} \PYGZdl{}IBISA/r/p
 
 \includegraphics[width=10cm]{{distribution}.png}
 
-This plot clearly shows localization of ions in the ion binding sites. On the basis of this plot, we can define the boundary of each ion binding site.
-
-Here, we use the definition which is defined in our previous paper. The boundaries of ion binding sites are  15.13, 12.93, 9.32, 6.25, 3.00, 0.44, -2.21, -6.08, and -20.
+This plot clearly shows localization of ions in the ion-binding sites. On the basis of this plot, we can define the boundary of each ion binding site.
 
 
 \section{Discretizing the trajectory based on ion-binding sites}
 \label{tutorial:discretizing-the-trajectory-based-on-ion-binding-sites}
+Here, we use the definition which is determined in our previous reports. The boundaries of ion binding sites are  15.13, 12.93, 9.32, 6.25, 3.00, 0.44, -2.21, -6.08, and -20.:
+
 \begin{Verbatim}[commandchars=\\\{\}]
 python \PYGZdl{}IBISA/bin/site\PYGZus{}occupancy.py \PYGZbs{}
  \PYGZhy{}\PYGZhy{}i\PYGZhy{}pore\PYGZhy{}crd\PYGZhy{}h pore\PYGZus{}axis.txt \PYGZbs{}
@@ -450,9 +427,10 @@ The output \emph{site\_path.txt}:
 \PYG{l+m+mi}{6985}    \PYG{n}{K}       \PYG{o}{*}\PYG{p}{:}\PYG{l+m+mi}{0}\PYG{p}{:}\PYG{o}{*}   \PYG{l+m+mi}{7320}\PYG{p}{:}\PYG{l+m+mi}{7350}       \PYG{o}{*}\PYG{p}{:}\PYG{l+m+mi}{0}\PYG{p}{:}\PYG{o}{*}   \PYG{l+m+mi}{7320}\PYG{p}{:}\PYG{l+m+mi}{7350}
 \PYG{l+m+mi}{6985}    \PYG{n}{K}       \PYG{o}{*}\PYG{p}{:}\PYG{l+m+mi}{0}\PYG{p}{:}\PYG{o}{*}   \PYG{l+m+mi}{7540}\PYG{p}{:}\PYG{l+m+mi}{7570}       \PYG{o}{*}\PYG{p}{:}\PYG{l+m+mi}{0}\PYG{p}{:}\PYG{o}{*}   \PYG{l+m+mi}{7540}\PYG{p}{:}\PYG{l+m+mi}{7570}
 \end{Verbatim}
-
-The first column indicates the ID of the ion.
 \begin{itemize}
+\item {} 
+The first column indicates the ID of the ion.
+
 \item {} 
 At the third column, ``\emph{:3:0:}'' means this ion got into the pore at site 3, and went out from the site 0.
 
@@ -464,8 +442,10 @@ The fifth column, ``\emph{:3:2:1:0:}'' indicates the full trajectory of this ion
 
 \end{itemize}
 
+Each line corresponds to each event starting with an ion association and ending with a dissociation of that ion. The third and fourth columns are abbreviations of the fifth and sixth columns, respectively.
 
-\section{Generating the ion-binding state graph::}
+
+\section{Generating the ion-binding state graph}
 \label{tutorial:generating-the-ion-binding-state-graph}
 \begin{Verbatim}[commandchars=\\\{\}]
 python \PYGZdl{}IBISA/bin/analyze\PYGZus{}site\PYGZus{}state.py \PYGZbs{}
@@ -491,7 +471,7 @@ The ion binding state graph can be visualized by using the output file \emph{sta
 The third column indicate the IDs of ions in the ion binding sites.
 
 
-\section{Extracting cyclic paths from the state trajectory::}
+\section{Extracting cyclic paths from the state trajectory}
 \label{tutorial:extracting-cyclic-paths-from-the-state-trajectory}
 \begin{Verbatim}[commandchars=\\\{\}]
 python \PYGZdl{}IBISA/bin/extract\PYGZus{}cycles.py \PYGZbs{}
@@ -519,10 +499,7 @@ option \emph{--title} is an arbitrary string.
 \end{Verbatim}
 \begin{itemize}
 \item {} 
-The line begining with ``\textgreater{}'' is the header line. The cyclic phat ``1'' starts at 6010 and ends at 7830.
-
-\item {} 
-The resting state, K:0:2:4, is the most stable state in the trajectory.
+The line begining with ``\textgreater{}'' is the header line. The cyclic path ``1'' starts at 6010 and ends at 7830.
 
 \end{itemize}
 
@@ -538,28 +515,27 @@ python \PYGZdl{}IBISA/bin/cycle\PYGZus{}to\PYGZus{}sequence.py \PYGZbs{}
 \end{Verbatim}
 \begin{itemize}
 \item {} 
-\emph{state\_dict.txt} describes the correspondence between a state and a character.
+\emph{state\_dict.txt} describes a correspondence between states and characters.
 
 \item {} 
-\emph{sequences.fsa} is the sequences of cyclic paths.:
-
-\begin{Verbatim}[commandchars=\\\{\}]
-\PYG{o}{\PYGZgt{}} \PYG{l+m+mi}{0}     \PYG{l+m+mi}{0}       \PYG{o}{*}\PYG{n}{POMFB}\PYG{o}{*} \PYG{l+m+mi}{5}       \PYG{l+m+mi}{28990}   \PYG{l+m+mi}{31650}   \PYG{n}{sample}
-\end{Verbatim}
-
-\emph{POMFB}
-\textgreater{} 1     0       \emph{POMFE} 8       44310   45210   sample
-\emph{POMFE}
-\textgreater{} 2     0       \emph{PJHF}  7       39280   42200   sample
-\emph{PJHF}
-\textgreater{} 3     0       \emph{POKLF} 6       36850   38640   sample
-\emph{POKLF}
+\emph{sequences.fsa} is the sequences of cyclic paths.
 
 \end{itemize}
 
-Assignment characters can be modified by your self. For clarity, the characters for the ion binding states with 4 ions are replaced with lower cases, and 5-ion state is ``\#''.
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{o}{\PYGZgt{}} \PYG{l+m+mi}{0}     \PYG{l+m+mi}{0}       \PYG{o}{*}\PYG{n}{POMFB}\PYG{o}{*} \PYG{l+m+mi}{5}       \PYG{l+m+mi}{28990}   \PYG{l+m+mi}{31650}   \PYG{n}{sample}
+\PYG{o}{*}\PYG{n}{POMFB}\PYG{o}{*}
+\PYG{o}{\PYGZgt{}} \PYG{l+m+mi}{1}     \PYG{l+m+mi}{0}       \PYG{o}{*}\PYG{n}{POMFE}\PYG{o}{*} \PYG{l+m+mi}{8}       \PYG{l+m+mi}{44310}   \PYG{l+m+mi}{45210}   \PYG{n}{sample}
+\PYG{o}{*}\PYG{n}{POMFE}\PYG{o}{*}
+\PYG{o}{\PYGZgt{}} \PYG{l+m+mi}{2}     \PYG{l+m+mi}{0}       \PYG{o}{*}\PYG{n}{PJHF}\PYG{o}{*}  \PYG{l+m+mi}{7}       \PYG{l+m+mi}{39280}   \PYG{l+m+mi}{42200}   \PYG{n}{sample}
+\PYG{o}{*}\PYG{n}{PJHF}\PYG{o}{*}
+\PYG{o}{\PYGZgt{}} \PYG{l+m+mi}{3}     \PYG{l+m+mi}{0}       \PYG{o}{*}\PYG{n}{POKLF}\PYG{o}{*} \PYG{l+m+mi}{6}       \PYG{l+m+mi}{36850}   \PYG{l+m+mi}{38640}   \PYG{n}{sample}
+\PYG{o}{*}\PYG{n}{POKLF}\PYG{o}{*}
+\end{Verbatim}
 
-vi state\_dict.txt:
+Assignments of characters for states can be modified by revising the file specified as --i-state-dict option. For clarity, the characters for the ion binding states with 4 ions are replaced with lower cases, and 5-ion state is ``\#''.
+
+state\_dict.txt:
 
 \begin{Verbatim}[commandchars=\\\{\}]
 \PYG{n}{K}\PYG{p}{:}\PYG{l+m+mi}{2}\PYG{p}{:}\PYG{l+m+mi}{3}\PYG{p}{:}\PYG{l+m+mi}{6} \PYG{n}{I}
@@ -571,18 +547,14 @@ vi state\_dict.txt:
 \PYG{n}{K}\PYG{p}{:}\PYG{l+m+mi}{0}\PYG{p}{:}\PYG{l+m+mi}{2}\PYG{p}{:}\PYG{l+m+mi}{3}\PYG{p}{:}\PYG{l+m+mi}{5}\PYG{p}{:}\PYG{l+m+mi}{6}     \PYG{c+c1}{\PYGZsh{}}
 \end{Verbatim}
 
-Then, re-do \emph{cycle\_to\_sequence.py}
-\begin{quote}
-\begin{description}
-\item[{python \$IBISA/bin/cycle\_to\_sequence.py }] \leavevmode\begin{optionlist}{3cm}
-\item [-{-}i-cycles]  
-state\_traj\_cycles.txt 
-\end{optionlist}
+Then, re-do \emph{cycle\_to\_sequence.py}:
 
---i-state-dict state\_dict.txt --o-sequence   sequences.fsa
-
-\end{description}
-\end{quote}
+\begin{Verbatim}[commandchars=\\\{\}]
+python \PYGZdl{}IBISA/bin/cycle\PYGZus{}to\PYGZus{}sequence.py \PYGZbs{}
+  \PYGZhy{}\PYGZhy{}i\PYGZhy{}cycles     state\PYGZus{}traj\PYGZus{}cycles.txt \PYGZbs{}
+  \PYGZhy{}\PYGZhy{}i\PYGZhy{}state\PYGZhy{}dict state\PYGZus{}dict.txt \PYGZbs{}
+  \PYGZhy{}\PYGZhy{}o\PYGZhy{}sequence   sequences.fsa
+\end{Verbatim}
 
 
 \section{Generating score matrix of states}
@@ -593,7 +565,7 @@ python \PYGZdl{}IBISA/bin/make\PYGZus{}score\PYGZus{}matrix.py \PYGZbs{}
    \PYGZhy{}\PYGZhy{}o\PYGZhy{}score       score\PYGZus{}matrix.txt
 \end{Verbatim}
 
-The similarity between states are simply defined by the number of binding ions. When the two states have the same number of ions, the score is 0.5. Otherwise, teh score is 0.0.
+For each pair of ion-binding states, when the two states are identical, the similarity score is 1.0. When the two states have the same number of ions, the score is 0.5. Otherwise, teh score is 0.0.
 
 
 \section{Performing the sequence alignment}
@@ -610,22 +582,21 @@ python \PYGZdl{}IBISA/bin/dp\PYGZus{}align.py \PYGZbs{}
 \end{Verbatim}
 \begin{itemize}
 \item {} 
-\emph{-g} and \emph{-m} are gap score and match score, respectively.
+\emph{-g} and \emph{-m} are gap score and match scores, respectively.
 
 \item {} 
-The output file \emph{align.txt} shows the pairwise alignments:
-
-\begin{Verbatim}[commandchars=\\\{\}]
-\PYG{o}{\PYGZgt{}} \PYG{l+m+mi}{2}     \PYG{l+m+mi}{3}       \PYG{l+m+mf}{0.0}     \PYG{l+m+mi}{2}       \PYG{l+m+mi}{0}       \PYG{o}{*}\PYG{n}{pJHF}\PYG{o}{*}  \PYG{l+m+mi}{7}       \PYG{l+m+mi}{39280}   \PYG{l+m+mi}{42200}   \PYG{n}{sample}  \PYG{l+m+mi}{3}       \PYG{l+m+mi}{0}       \PYG{o}{*}\PYG{n}{poklF}\PYG{o}{*} \PYG{l+m+mi}{6}       \PYG{l+m+mi}{36850}   \PYG{l+m+mi}{38640}   \PYG{n}{sample}
-\end{Verbatim}
-
-\emph{pJH-F}
-\emph{poklF}
-\textgreater{} 0     3       1.0     0       0       \emph{pomFB} 5       28990   31650   sample  3       0       \emph{poklF} 6       36850   38640   sample
-\emph{pom-FB}
-\emph{poklF-}
+The output file \emph{align.txt} shows the pairwise alignments
 
 \end{itemize}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{o}{\PYGZgt{}} \PYG{l+m+mi}{2}     \PYG{l+m+mi}{3}       \PYG{l+m+mf}{0.0}     \PYG{l+m+mi}{2}       \PYG{l+m+mi}{0}       \PYG{o}{*}\PYG{n}{pJHF}\PYG{o}{*}  \PYG{l+m+mi}{7}       \PYG{o}{.}\PYG{o}{.}\PYG{o}{.}
+\PYG{o}{*}\PYG{n}{pJH}\PYG{o}{\PYGZhy{}}\PYG{n}{F}\PYG{o}{*}
+\PYG{o}{*}\PYG{n}{poklF}\PYG{o}{*}
+\PYG{o}{\PYGZgt{}} \PYG{l+m+mi}{0}     \PYG{l+m+mi}{3}       \PYG{l+m+mf}{1.0}     \PYG{l+m+mi}{0}       \PYG{l+m+mi}{0}       \PYG{o}{*}\PYG{n}{pomFB}\PYG{o}{*} \PYG{l+m+mi}{5}       \PYG{o}{.}\PYG{o}{.}\PYG{o}{.}
+\PYG{o}{*}\PYG{n}{pom}\PYG{o}{\PYGZhy{}}\PYG{n}{FB}\PYG{o}{*}
+\PYG{o}{*}\PYG{n}{poklF}\PYG{o}{\PYGZhy{}}\PYG{o}{*}
+\end{Verbatim}
 
 
 \section{Make the similarity matrix of cyclic paths}
@@ -653,7 +624,7 @@ R \PYGZhy{}\PYGZhy{}vanilla \PYGZhy{}\PYGZhy{}slave \PYGZlt{} \PYGZdl{}IBISA/r/c
 
 \section{Converting a trajectory file}
 \label{appendix:converting-a-trajectory-file}
-\emph{IBiSA\_tools} can read only .trr file. When you analyze trajectories written in other format, they have to be converted into .trr file.
+\emph{IBiSA\_tools} can read only .trr format. When you analyze trajectories written in other format, the files have to be converted into .trr file.
 
 Some tools for the conversion exist. Here, a sample code powered by the Python library \emph{MDAnalysis} is presented.:
 
@@ -666,7 +637,7 @@ Some tools for the conversion exist. Here, a sample code powered by the Python l
     \PYG{n}{writer}\PYG{o}{.}\PYG{n}{write\PYGZus{}next\PYGZus{}timestep}\PYG{p}{(}\PYG{n}{ts}\PYG{p}{)}
 \end{Verbatim}
 
-The script convert \emph{trajectory.ncdf} (AMBER, NetCDF file) into \emph{trajectory.trr} file (GROMACS, .trr file). \emph{initial.pdb} is the initial coordinates writtein in the flat .pdb format.
+The script converts \emph{trajectory.ncdf} (AMBER, NetCDF file) into \emph{trajectory.trr} file (GROMACS, .trr file). \emph{initial.pdb} is the initial coordinates writtein in the flat .pdb format.
 
 
 

@@ -6,7 +6,7 @@ Setting the path to IBiSA_tools
 -------------------------------------------------------------------------
 ::
 
-  export IBISA="${HOME}/local/ibisa"
+  export IBISA="${HOME}/local/IBiSA_tools"
 
 Set your own install directory.
 
@@ -37,20 +37,19 @@ config.txt::
 
 Each line indicate a set of key and values.
 
-* *--mode* is always "sice-occupancy". This field is for future extensions.
 * *--fn-pdb* is the initial structure file.
-* *--dt* is the delta-t for the trajectory file
-* *--site-max-radius* is the maximum radius of ion channel pore.
-* *--site-boundary* is specified two values, 20.0 and -25.0. This setting means that the range from 20.0 > z > -25.0 in the pore axis will be analyzed. The origin is set by *--pore-axis-basis-from* key.
-* *--fn-pore-axis-coordinates* and *--fn-pore-axis-coordinates-r* are the output filenames.
+* *--dt* is the time step of the trajectory file
+* *--site-boundary* is specified two values, 20.0 and -25.0. This setting means that the range from 20.0 to -25.0 in the pore axis will be analyzed. The origin of the pore axis is set by *--pore-axis-basis-from* key.
+* *--fn-pore-axis-coordinates* and *--fn-pore-axis-coordinates-r* are the output file names.
 * *--pore-axis-basis-from* specifies the origin of the pore axis. "A 374 O" means the O atom in the residue 374 of the chain A. In this tutorial, four oxigen atoms are specified. The center of these atoms is set to be the origin of the pore axis.
-* *--pore-axis-basis-to* is the direction of the pore axis. The line from the center of *...-from* to the center of *...-to* defines the pore axis.
+* *--pore-axis-basis-to* defines the direction of the pore axis. The line from the center of *...-from* to the center of *...-to* defines the pore axis.
+* *--site-max-radius* is the maximum radius of ion channel pore.
 * *--site-height-margin* is the margin length along the pore axis. In this case, the range from 20.0+5.0 to -25.0-5.0 will be analyzed.
-* *--channel-chain-id* specifies chain ids of a channel protein.
+* *--channel-chain-id* specifies chain IDs of a channel protein.
 * *--trace-atom-name* specifies the atom name of target ions, defined in the .pdb file.
-* *--fn-trr* is the file name of the trajectory.
+* *--fn-trr* is the file name of the trajectory. Multiple files can be specified.
 
-Executing "trachan"
+Converting a trajectory into the pore axis coordinates
 -------------------------------------------------------------------------
 ::
 
@@ -66,7 +65,7 @@ Some text should appear in the standard output::
   This software is distributed under the terms of the GPL license  
                                                                    
   -----------------------------------------------------------------
-  This program is contains some parts of the source code of GROMACS
+  This program contains some parts of the source code of GROMACS
   software. Check out http://www.gromacs.org about GROMACS.        
   Copyright (c) 1991-2000, University of Groningen, The Netherlands
   Copyright (c) 2001-2010, The GROMACS development team at         
@@ -92,35 +91,9 @@ Some text should appear in the standard output::
   
 And the two output files, *pore_axis.txt* and *pore_axis_r.txt* will be obtained. 
 
-They are tab-separated text. The first column indicate the time, and the other columns correspond to each potassium ion. Each row indicates the position of each ion at the time. *pore_axis.txt* and *pore_axis_r.txt* record the coordinates along the pore axis and those along the radial direction parpendicular to the pore axis.
+They are tab-separated text files. The first column indicates the time, and the other columns correspond to the coordinate of each potassium ion. Each row indicates the positions in each snapshot. *pore_axis.txt* and *pore_axis_r.txt* record the coordinates along the pore axis and those along the radial direction parpendicular to the pore axis.
 
-..
-  
-  Detecting ion conduction event
-  -------------------------------------------------------------------------
-  ::
-
-  python $IBISA/bin/detect_ion_permeation.py \
-    --i-pore-crd-h pore_axis.txt \
-    --i-pore-crd-r pore_axis_r.txt \
-    --o-permeation-event permeation_event.txt \
-    --atom K --b-r 10 --b-h-up 20 --b-h-low -25 
-  
-  Trace each potassium ion travelling from -25 to 20 in z-axis. This script does not consider whether the ion through inside the pore or not.
-  The output file *permeation_event.txt*::
-
-  6961    K       -       +       5950    21400
-  6986    K       -       +       10370   30830
-  6974    K       -       +       11010   38810
-  6953    K       -       +       28720   44950
-  6968    K       -       +       36780   47280
-  6961    K       -       +       39150   48360
-
-  The first column is the ID of ion, the symbols *-* and *+* means that the ion permeated from the *-* side to the *+* side. The last two columns indicate times when the ion enters and goes out the defined region.
-  
-..
-
-Drawing the trajectory of ions along the pore axis
+Drawing a trajectory of ions along the pore axis
 ------------------------------------------------------------------------
 ::
 
@@ -131,7 +104,7 @@ Drawing the trajectory of ions along the pore axis
 .. image:: images/pore_axis_traj.png
     :width: 10 cm
 
-Analyzing the histogram of ions
+Analyzing a histogram of ions
 -------------------------------------------------------------------------
 
 Histogram of ion frequency over the 2D pore axis space can be drawn by::
@@ -141,9 +114,8 @@ Histogram of ion frequency over the 2D pore axis space can be drawn by::
     --i-pore-crd-r pore_axis_r.txt \
     --o-histogram histogram.txt \
     --atomname K 
-
-
-    R --vanilla --slave < $IBISA/r/histogram.R
+  
+  R --vanilla --slave < $IBISA/r/histogram.R
 
 *histogram.eps* is the 1D and 2D histogram of ions.
 
@@ -162,14 +134,12 @@ Analyzing the density distribution of ions along the pore axis
 .. image:: images/distribution.png
     :width: 10 cm
 
-This plot clearly shows localization of ions in the ion binding sites. On the basis of this plot, we can define the boundary of each ion binding site.
-
-Here, we use the definition which is defined in our previous paper. The boundaries of ion binding sites are  15.13, 12.93, 9.32, 6.25, 3.00, 0.44, -2.21, -6.08, and -20.
-
+This plot clearly shows localization of ions in the ion-binding sites. On the basis of this plot, we can define the boundary of each ion binding site.
 
 Discretizing the trajectory based on ion-binding sites
 -------------------------------------------------------------------------
-::
+
+Here, we use the definition which is determined in our previous reports. The boundaries of ion binding sites are  15.13, 12.93, 9.32, 6.25, 3.00, 0.44, -2.21, -6.08, and -20.::
 
   python $IBISA/bin/site_occupancy.py \
    --i-pore-crd-h pore_axis.txt \
@@ -207,13 +177,14 @@ The output *site_path.txt*::
   6985    K       *:0:*   7320:7350       *:0:*   7320:7350                                                                     
   6985    K       *:0:*   7540:7570       *:0:*   7540:7570  
 
-The first column indicates the ID of the ion.
-
+* The first column indicates the ID of the ion.
 * At the third column, "*:3:0:*" means this ion got into the pore at site 3, and went out from the site 0.
 * The fourth column denote the times for getting into and going out from the pore.
 * The fifth column, "*:3:2:1:0:*" indicates the full trajectory of this ion from association the to pore and dissociation from the pore.
 
-Generating the ion-binding state graph::
+Each line corresponds to each event starting with an ion association and ending with a dissociation of that ion. The third and fourth columns are abbreviations of the fifth and sixth columns, respectively.
+
+Generating the ion-binding state graph
 -------------------------------------------------------------------------
 ::
 
@@ -237,7 +208,7 @@ The ion binding state graph can be visualized by using the output file *state_gr
 
 The third column indicate the IDs of ions in the ion binding sites.
 
-Extracting cyclic paths from the state trajectory::
+Extracting cyclic paths from the state trajectory
 -------------------------------------------------------------------------
 ::
 
@@ -259,8 +230,7 @@ Extracting cyclic paths from the state trajectory::
   7820    K:1:3:5 K:6993:6935:6961
   7830    K:0:2:4 K:6993:6935:6961
 
-* The line begining with ">" is the header line. The cyclic phat "1" starts at 6010 and ends at 7830.
-* The resting state, K:0:2:4, is the most stable state in the trajectory.
+* The line begining with ">" is the header line. The cyclic path "1" starts at 6010 and ends at 7830.
 
 Converting states into characters. A cyclic parts transformed into a sequence::
 -------------------------------------------------------------------------
@@ -272,21 +242,23 @@ Converting states into characters. A cyclic parts transformed into a sequence::
     --o-state-dict state_dict.txt \
     --o-sequence   sequences.fsa 
 
-* *state_dict.txt* describes the correspondence between a state and a character.
-* *sequences.fsa* is the sequences of cyclic paths.::
+* *state_dict.txt* describes a correspondence between states and characters.
+* *sequences.fsa* is the sequences of cyclic paths.
+
+::
 
   > 0     0       *POMFB* 5       28990   31650   sample
-  *POMFB*
+  *POMFB* 
   > 1     0       *POMFE* 8       44310   45210   sample
-  *POMFE*
+  *POMFE* 
   > 2     0       *PJHF*  7       39280   42200   sample
-  *PJHF*
+  *PJHF* 
   > 3     0       *POKLF* 6       36850   38640   sample
-  *POKLF*
+  *POKLF* 
 
-Assignment characters can be modified by your self. For clarity, the characters for the ion binding states with 4 ions are replaced with lower cases, and 5-ion state is "#".
+Assignments of characters for states can be modified by revising the file specified as --i-state-dict option. For clarity, the characters for the ion binding states with 4 ions are replaced with lower cases, and 5-ion state is "#".
 
-vi state_dict.txt::
+state_dict.txt::
 
   K:2:3:6 I
   K:2:4:6 J
@@ -296,7 +268,7 @@ vi state_dict.txt::
   ..
   K:0:2:3:5:6     #
 
-Then, re-do *cycle_to_sequence.py*
+Then, re-do *cycle_to_sequence.py*::
 
   python $IBISA/bin/cycle_to_sequence.py \
     --i-cycles     state_traj_cycles.txt \
@@ -311,7 +283,7 @@ Generating score matrix of states
      --i-state-dict  state_dict.txt \
      --o-score       score_matrix.txt
 
-The similarity between states are simply defined by the number of binding ions. When the two states have the same number of ions, the score is 0.5. Otherwise, teh score is 0.0.
+For each pair of ion-binding states, when the two states are identical, the similarity score is 1.0. When the two states have the same number of ions, the score is 0.5. Otherwise, teh score is 0.0.
 
 Performing the sequence alignment
 -------------------------------------------------------------------------
@@ -326,13 +298,15 @@ Performing the sequence alignment
      -m 1.0 \
      --ignore *
 
-* *-g* and *-m* are gap score and match score, respectively.
-* The output file *align.txt* shows the pairwise alignments::
+* *-g* and *-m* are gap score and match scores, respectively.
+* The output file *align.txt* shows the pairwise alignments
 
-  > 2     3       0.0     2       0       *pJHF*  7       39280   42200   sample  3       0       *poklF* 6       36850   38640   sample
+::
+
+  > 2     3       0.0     2       0       *pJHF*  7       ...
   *pJH-F*
   *poklF*
-  > 0     3       1.0     0       0       *pomFB* 5       28990   31650   sample  3       0       *poklF* 6       36850   38640   sample
+  > 0     3       1.0     0       0       *pomFB* 5       ...
   *pom-FB*
   *poklF-*
 

@@ -18,7 +18,7 @@ static std::string cp =
 
 static std::string cp_gromacs = 
   "-----------------------------------------------------------------\n"
-  "This program is contains some parts of the source code of GROMACS\n"
+  "This program contains some parts of the source code of GROMACS \n"
   "software. Check out http://www.gromacs.org about GROMACS.\n"
   "Copyright (c) 1991-2000, University of Groningen, The Netherlands.\n"
   "Copyright (c) 2001-2010, The GROMACS development team at\n"

@@ -6,10 +6,10 @@ About
 Authors
 -------------------------------------
 
-IBiSA_tools version 0.12 (12 Jun. 2016)
+IBiSA_tools version 1.00 (12 Jul. 2016)
 
-* Kota Kasahara, Ritsumeikan University
-* Kengo Kinoshita, Tohoku University
+* Kota Kasahara, Ritsumeikan University, Japan
+* Kengo Kinoshita, Tohoku University, Japan
 
 -------------------------------------
 Citation
@@ -23,16 +23,16 @@ Citation
 Requirements
 -------------------------------------
 
-* The current version of IBiSA_tools can be applied only for GROMACS trajectory file (.trr). If your trajectories are written in another format, you have to convert it into .trr, by using some tools, e.g., VMD plugin and MDAnalysis.
+* The current version of IBiSA_tools can be applied only for GROMACS trajectory file (.trr). If your trajectories are written in another format, you have to convert it into .trr, by using some tools, e.g., VMD plugin and MDAnalysis (see Appendix).
 * IBiSA_tools is consisting of a C++ program and Python (2.6 or 2.7) scripts.
 * The attached tutorial files use R software (www.r-project.org) to draw plots.
-* Network drawing software, e.g., Cytoscape, is required to visualize ion binding state graph.
+* Network drawing software, e.g., Cytoscape, is required to visualize ion-binding state graph.
 
 -------------------------------------
 Download
 -------------------------------------
 
-http://kotakasahara.github.com
+https://github.com/kotakasahara/IBiSA_tools
 
 -------------------------------------
 Installation
@@ -44,4 +44,4 @@ Only a C++ program, trachan, must be compiled as follows::
   ./configure
   make
 
-In this document, we assume the binary and python scripts are included at the directory indicated by ${IBISA}.
+In this document, we assume the binary and python scripts are included in the directory indicated as ${IBISA}.
