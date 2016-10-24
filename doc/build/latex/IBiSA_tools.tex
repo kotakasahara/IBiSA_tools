@@ -28,7 +28,7 @@
 
 
 \title{IBiSA\_tools Documentation}
-\date{Jul 12, 2016}
+\date{Oct 24, 2016}
 \release{1.00}
 \author{Kota Kasahara}
 \newcommand{\sphinxlogo}{}
@@ -276,12 +276,6 @@ Each line indicate a set of key and values.
 \emph{--pore-axis-basis-to} defines the direction of the pore axis. The line from the center of \emph{...-from} to the center of \emph{...-to} defines the pore axis.
 
 \item {} 
-\emph{--site-max-radius} is the maximum radius of ion channel pore.
-
-\item {} 
-\emph{--site-height-margin} is the margin length along the pore axis. In this case, the range from 20.0+5.0 to -25.0-5.0 will be analyzed.
-
-\item {} 
 \emph{--channel-chain-id} specifies chain IDs of a channel protein.
 
 \item {} 
@@ -289,6 +283,12 @@ Each line indicate a set of key and values.
 
 \item {} 
 \emph{--fn-trr} is the file name of the trajectory. Multiple files can be specified.
+
+\item {} 
+\emph{--site-max-radius (optional)} is the maximum radius of ion channel pore. As the channel pore is narrowed by the protein structure and the range of ion-binding sites on the radial coordinates is sterically defined by the protein structure in usual cases, this setting is not important, but is should be set large value enough to cover the pore.
+
+\item {} 
+\emph{--site-height-margin (optional)} is the margin length along the pore axis. In this case, the range from 20.0+5.0 to -25.0-5.0 will be analyzed.
 
 \end{itemize}
 

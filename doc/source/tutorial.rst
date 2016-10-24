@@ -43,11 +43,11 @@ Each line indicate a set of key and values.
 * *--fn-pore-axis-coordinates* and *--fn-pore-axis-coordinates-r* are the output file names.
 * *--pore-axis-basis-from* specifies the origin of the pore axis. "A 374 O" means the O atom in the residue 374 of the chain A. In this tutorial, four oxigen atoms are specified. The center of these atoms is set to be the origin of the pore axis.
 * *--pore-axis-basis-to* defines the direction of the pore axis. The line from the center of *...-from* to the center of *...-to* defines the pore axis.
-* *--site-max-radius* is the maximum radius of ion channel pore.
-* *--site-height-margin* is the margin length along the pore axis. In this case, the range from 20.0+5.0 to -25.0-5.0 will be analyzed.
 * *--channel-chain-id* specifies chain IDs of a channel protein.
 * *--trace-atom-name* specifies the atom name of target ions, defined in the .pdb file.
 * *--fn-trr* is the file name of the trajectory. Multiple files can be specified.
+* *--site-max-radius (optional)* is the maximum radius of ion channel pore. As the channel pore is narrowed by the protein structure and the range of ion-binding sites on the radial coordinates is sterically defined by the protein structure in usual cases, this setting is not important, but is should be set large value enough to cover the pore.
+* *--site-height-margin (optional)* is the margin length along the pore axis. In this case, the range from 20.0+5.0 to -25.0-5.0 will be analyzed. 
 
 Converting a trajectory into the pore axis coordinates
 -------------------------------------------------------------------------

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2016.6.21)  12 JUL 2016 16:27
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2016.6.21)  24 OCT 2016 12:17
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1110,7 +1110,8 @@ Package pdftex.def Info: fig_overview_detail.png used on input line 215.
 (pdftex.def)             Requested size: 455.24408pt x 365.85855pt.
  [5
 
- <./fig_overview_detail.png>] [6
+ <./fig_overview_detail.png (PNG copy)>]
+[6
 
 ]
 Chapter 3.
@@ -1118,14 +1119,14 @@ LaTeX Font Info:    Font shape `T1/pcr/m/it' in size <9> not available
 (Font)              Font shape `T1/pcr/m/sl' tried instead on input line 226.
 LaTeX Font Info:    Font shape `T1/pcr/bx/n' in size <9> not available
 (Font)              Font shape `T1/pcr/b/n' tried instead on input line 243.
-[7] [8] <pore_axis_traj.png, id=199, 1319.93124pt x 672.5125pt>
+[7] [8] <pore_axis_traj.png, id=197, 1319.93124pt x 672.5125pt>
 File: pore_axis_traj.png Graphic file (type png)
 
 <use pore_axis_traj.png>
 Package pdftex.def Info: pore_axis_traj.png used on input line 351.
 (pdftex.def)             Requested size: 284.52756pt x 144.96704pt.
 
-<distribution.png, id=200, 1735.48375pt x 1139.25626pt>
+<distribution.png, id=198, 1735.48375pt x 1139.25626pt>
 File: distribution.png Graphic file (type png)
  <use distribution.png>
 Package pdftex.def Info: distribution.png used on input line 379.
@@ -1137,14 +1138,14 @@ LaTeX Font Info:    Try loading font information for TS1+pcr on input line 395.
 
 (/usr/local/texlive/2016/texmf-dist/tex/latex/psnfss/ts1pcr.fd
 File: ts1pcr.fd 2001/06/04 font definitions for TS1/pcr.
-) [10 <./distribution.png>] <network.png, id=211, 1539.7525pt x 1020.81375pt>
+) [10 <./distribution.png>] <network.png, id=210, 1539.7525pt x 1020.81375pt>
 File: network.png Graphic file (type png)
  <use network.png>
 Package pdftex.def Info: network.png used on input line 460.
 (pdftex.def)             Requested size: 284.52756pt x 188.62952pt.
 
 [11 <./network.png>] [12] [13]
-<dendrogram.png, id=225, 1811.76875pt x 832.10875pt>
+<dendrogram.png, id=224, 1811.76875pt x 832.10875pt>
 File: dendrogram.png Graphic file (type png)
  <use dendrogram.png>
 Package pdftex.def Info: dendrogram.png used on input line 619.
@@ -1168,7 +1169,7 @@ Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 646.
 Here is how much of TeX's memory you used:
  13411 strings out of 493014
  183492 string characters out of 6133351
- 334021 words of memory out of 5000000
+ 335021 words of memory out of 5000000
  16596 multiletter control sequences out of 15000+600000
  59039 words of font info for 75 fonts, out of 8000000 for 9000
  1142 hyphenation exceptions out of 8191
@@ -1182,9 +1183,9 @@ ype1/urw/helvetic/uhvbo8a.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/u
 rw/times/utmb8a.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/urw/times/u
 tmr8a.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/urw/times/utmri8a.pfb
 >
-Output written on IBiSA_tools.pdf (19 pages, 1074577 bytes).
+Output written on IBiSA_tools.pdf (19 pages, 1211417 bytes).
 PDF statistics:
- 278 PDF objects out of 1000 (max. 8388607)
+ 277 PDF objects out of 1000 (max. 8388607)
  232 compressed objects within 3 object streams
  47 named destinations out of 1000 (max. 500000)
  246 words of extra memory for PDF output out of 10000 (max. 10000000)
